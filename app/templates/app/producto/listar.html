@@ -1,0 +1,75 @@
+{% extends 'app/base.html' %}
+
+{% block js %}
+
+<script>
+    function eliminarProducto(id){
+        Swal.fire({
+            "title" : "¿Estas seguro?",
+            "text"  : "deseas eliminar el producto",
+            "icon"  : "question",
+            "showCancelButton" : true,
+            "confirmButtonText" : "Confirmar",
+            "cancelButtonText" : "Cancelar",
+            "confirmButtonColor" : "#B90C0C"
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "/eliminar-producto/"+id+"/"
+            }
+        })
+    }
+</script>
+
+{% endblock %}
+
+{% block contenido %}
+{% load humanize %}
+<br><br>
+<div class="card">
+    <div class="card-body">
+        <h2>Listado de Libros</h2>
+        <hr>
+        <table class="table table-striped table-hover table-responsive-small">
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Editorial</th>
+                <th>Es nuevo</th>
+                <th>Opciones</th>
+            </tr>
+        
+            {% for p in entity %}
+        
+            <tr>
+                <td>{{ p.nombre | title }}</td>
+                <td>$ {{p.precio | intcomma }}</td>
+                <td>{{ p.editorial | title }}</td>
+                <td>
+                    {% if p.nuevo %}
+                    SI
+                    {% else %}
+                    NO
+                    {% endif %}
+                </td>
+                <td>
+                    {% if perms.app.change_producto %}
+                    <a href="{% url 'modificar_producto' p.id %}" class="btn btn-primary">modificar</a>
+                    {% endif %}
+
+                    {% if perms.app.delete_producto %}
+                    <a href="#" onclick="eliminarProducto({{ p.id }})" class="btn btn-danger">Eliminar</a>
+                    {% endif %}
+                </td>
+            </tr>
+        
+            {% endfor %} 
+        
+        </table>
+    </div>
+    {% include 'app/paginator.html' %}
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'app/base.html' %}
+
+{% block contenido %}
+<h2>Cambiar Contraseña</h2>
+<form action="" method="POST" class="ui form">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>      
+
+
+</form>
+
+{% endblock %}

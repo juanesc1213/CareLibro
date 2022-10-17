@@ -1,0 +1,74 @@
+{% extends 'app/base.html' %}
+
+{% block contenido %}
+{% if user.is_authenticated %}
+
+<table class="table caption-top mt-5 table-bordered border-secondary
+            table-light table-hover">
+    <caption>
+        PERFIL DE: {{user | title }}
+    </caption>
+    <tr>
+        <th>Usuario</th>
+        <td>{{user | title }}</td>
+    </tr>
+    <tr>
+        <th>Nombre</th>
+        <td>{{user.first_name | title }}</td>
+    </tr>
+    <tr>
+        <th>Apellidos</th>
+        <td>{{user.last_name | title }}</td>
+    </tr>
+    <tr>
+        <th>Correo</th>
+        <td>{{user.email | title }}</td>
+    </tr>
+    <tr>    
+        <th>Contraseña</th>
+        <td>{{user.password | title }}</td>
+    </tr>
+    <tr>
+        <th>DNI</th>
+        <td>{{user.perfilusuario.DNI | title }}</td>
+    </tr>
+    <tr>
+        <th>Telefono</th>
+        <td>{{user.perfilusuario.telefono | title }}</td>
+    </tr>
+    <tr>
+        <th>Genero</th>
+        <td>{{user.perfilusuario.genero | title }}</td>
+    </tr>
+    <tr>
+        <th>Fecha de Nacimiento</th>
+        <td>{{user.perfilusuario.fecha_nacimiento | title }}</td>
+    </tr>
+    <tr>
+        <th>Lugar de Nacimiento</th>
+        <td>{{user.perfilusuario.lugar_nacimiento | title }}</td>
+    </tr>
+    <tr>
+        <th>Generos de preferencia</th>
+        <td>{{user.perfilusuario.generos_preferencia | title }}</td>
+    </tr>
+    <tr>
+        <th>Direccion</th>
+        <td>{{user.perfilusuario.direccion_correspondencia | title }}</td>
+    </tr>
+    
+    
+
+</table>
+<table>
+    <tr>      
+        <a href="{% url 'modificar_perfil'  %}" class="btn btn-primary">Modificar</a>
+        <a href="{% url 'cambiar_contraseña'  %}" class="btn btn-primary">Modificar contraseña</a>
+        <a href="{% url 'eliminar_perfil' request.user.id %}" class="btn btn-danger">Eliminar</a>
+        
+    </tr>
+</table>
+{% else %}
+<p> Inicia sesion para ver los detalles</p>
+{% endif %}
+{% endblock %}

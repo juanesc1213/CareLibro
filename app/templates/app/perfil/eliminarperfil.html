@@ -1,0 +1,18 @@
+{% extends 'app/base.html' %}
+
+{% block contenido %}
+<h2>Eliminar perfil</h2>
+<form method="post">
+    {% csrf_token %}
+    <p>¿Estás seguro de que quieres eliminar el usuario {{ object.username }}?</p>
+    <table>
+        <tr>
+            <button type="submit" class="btn btn-primary">Si, quiero eliminar mi cuenta</button>      
+            <a href="{% url 'ver_perfil' %}" class="btn btn-danger">No</a>
+            
+        </tr>
+    </table>
+    
+</form>
+
+{% endblock %}
