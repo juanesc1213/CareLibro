@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %}
+
+{% block contenido %}
+{% load humanize %}
+<!-- {% load crispy_forms_tags %} -->
+<br>
+<div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+
+        <div class="card">
+            <div class="card-body">
+                <img src="{{ object.imagen.url }}" alt="imagen producto">
+                <h2>Titulo libro</h2>
+                <hr>
+                <h5>{{object.editorial | capfirst }}</h5>
+                <h2>{{object.nombre | title }}</h2>
+                <h3>$ {{object.precio | intcomma }}</h3>
+
+                
+                
+            {{ mensaje }}
+
+        </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

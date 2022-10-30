@@ -106,6 +106,9 @@ def eliminar_producto(request, id):
     messages.warning(request,"Eliminado correctamente")
     return redirect(to="listar_productos")
 
+class DetalleLibro(generic.detail.DetailView):
+    model= Producto
+    template_name= 'app/producto/librodetalle.html'
 
 def ver_perfil(request):
     data = {
@@ -114,12 +117,7 @@ def ver_perfil(request):
   
     
     return render(request, 'app/perfil/verperfil.html',data)
-def eliminar_perfil(request, user):
 
-    perfil = get_object_or_404(User, user=user)
-    perfil.delete()
-    messages.warning(request,"Eliminado correctamente")
-    return redirect(to="home")
 
 @login_required
 def modificar_perfil(request):
