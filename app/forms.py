@@ -1,4 +1,5 @@
 from dataclasses import field
+from datetime import date
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -27,11 +28,15 @@ class ExtendedUserCreationForm(UserCreationForm):
         model = User
         fields = ['username',"first_name", "last_name","email"]
     
-
+class DateInput(forms.DateInput):
+    input_type = 'date'
 class PerfilUsuarioForm(forms.ModelForm):
     class Meta:
         model=PerfilUsuario
         fields = ['DNI',"telefono", "genero","fecha_nacimiento","lugar_nacimiento","generos_preferencia","direccion_correspondencia"]
+        widgets = {
+            'fecha_nacimiento': DateInput(),
+        }
 
 class ExtendedUserCreationFormUpdate(forms.ModelForm):
     class Meta:

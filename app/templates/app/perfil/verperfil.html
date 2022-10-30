@@ -42,11 +42,11 @@
     </tr>
     <tr>
         <th>Fecha de Nacimiento</th>
-        <td>{{user.perfilusuario.fecha_nacimiento | title }}</td>
+        <td>{{user.perfilusuario.fecha_nacimiento | date:"d M Y"  }}</td>
     </tr>
     <tr>
         <th>Lugar de Nacimiento</th>
-        <td>{{user.perfilusuario.lugar_nacimiento | title }}</td>
+        <td>{{user.perfilusuario.lugar_nacimiento.name | title }}</td>
     </tr>
     <tr>
         <th>Generos de preferencia</th>
