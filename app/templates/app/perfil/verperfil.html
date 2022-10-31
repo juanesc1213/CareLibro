@@ -22,11 +22,11 @@
     </tr>
     <tr>
         <th>Correo</th>
-        <td>{{user.email | title }}</td>
+        <td>{{user.email | lower }}</td>
     </tr>
     <tr>    
         <th>Contraseña</th>
-        <td>{{user.password | title }}</td>
+        <td> ******** </td>
     </tr>
     <tr>
         <th>DNI</th>
@@ -38,11 +38,11 @@
     </tr>
     <tr>
         <th>Genero</th>
-        <td>{{user.perfilusuario.genero | title }}</td>
+        <td>{{user.perfilusuario.get_genero_display | title }}</td>
     </tr>
     <tr>
         <th>Fecha de Nacimiento</th>
-        <td>{{user.perfilusuario.fecha_nacimiento | date:"d M Y"  }}</td>
+        <td>{{user.perfilusuario.fecha_nacimiento | date:"d F Y"  }}</td>
     </tr>
     <tr>
         <th>Lugar de Nacimiento</th>

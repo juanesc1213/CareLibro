@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required,permission_required
 from django.http import Http404
 from .models import *
 from .forms import *
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import UserChangeForm
 from django.views import generic
 from django.urls import reverse_lazy
@@ -162,6 +162,8 @@ def registro(request):
             perfil = perfil_formulario.save(commit=False)
             perfil.user= user
             perfil.save()
+            user_group = Group.objects.get(name='Cliente') 
+            user.groups.add(user_group)
             user = authenticate(username=formulario.cleaned_data["username"], password=formulario.cleaned_data["password1"])
             login(request,user)
             messages.success(request, " Te has registrado correctamente")

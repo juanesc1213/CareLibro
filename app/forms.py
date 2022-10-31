@@ -41,7 +41,7 @@ class PerfilUsuarioForm(forms.ModelForm):
 class ExtendedUserCreationFormUpdate(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username',"first_name", "last_name","email"]
+        fields = ["first_name", "last_name","email"]
         
         
     
@@ -49,4 +49,5 @@ class ExtendedUserCreationFormUpdate(forms.ModelForm):
 class PerfilUsuarioFormUpdate(forms.ModelForm):
     class Meta:
         model=PerfilUsuario
-        fields = ["telefono", "genero","fecha_nacimiento","lugar_nacimiento","generos_preferencia","direccion_correspondencia"]
+        fields = ["telefono", "genero","lugar_nacimiento","generos_preferencia","direccion_correspondencia"]
+        
