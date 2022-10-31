@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Editorial, Producto,Contacto, PerfilUsuario
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
 
@@ -15,7 +17,17 @@ class ContactoAdmin(admin.ModelAdmin):
     list_filter     = ["tipo_consulta"]
     list_per_page   = 10
 
-admin.site.register(PerfilUsuario)
+class PerfilUsuarioInLine(admin.StackedInline):
+    model = PerfilUsuario
+    can_delete: False
+    verbose_name_plural = "Perfiles"
+
+class CustomPerfilAdmin (UserAdmin):
+    inlines= (PerfilUsuarioInLine, )
+
+admin.site.unregister(User)
+
+admin.site.register(User,CustomPerfilAdmin)
 admin.site.register(Editorial)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Contacto, ContactoAdmin)

@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from multiselectfield import MultiSelectField
 from django_countries.fields import CountryField
+from django.core.validators import MaxValueValidator
 
 # Create your models here.
 GENEROS_PREFERENCIA = ((1, 'Accion'),
@@ -65,19 +66,19 @@ GENEROS_PREFERENCIA = ((1, 'Accion'),
               (7, 'Poesia'),
               (8, 'Novela'))
 
-GENERO =[
-    [1, "Masculino"],
-    [2, "Femenino"],
-    [3, "No binario"],
-]
+GENERO =(
+    (1, "Masculino"),
+    (2, "Femenino"),
+    (3, "No binario"),
+)
 class PerfilUsuario(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    DNI = models.IntegerField(primary_key=True)
+    DNI = models.PositiveIntegerField(primary_key=True, unique=True,validators=[MaxValueValidator(9999999999)])
     telefono = models.IntegerField()
     genero=models.IntegerField(choices=GENERO)
     fecha_nacimiento = models.DateField()
     lugar_nacimiento = CountryField()
-    generos_preferencia = MultiSelectField(choices=GENEROS_PREFERENCIA,max_choices=3,max_length=100)
+    generos_preferencia = MultiSelectField(choices=GENEROS_PREFERENCIA,max_length=100)
     direccion_correspondencia = models.CharField(max_length=100)
     
 
