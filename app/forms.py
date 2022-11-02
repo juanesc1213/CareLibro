@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm
 from .models import *
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+        
 class ContactoForms(forms.ModelForm):
     class Meta:
         model = Contacto
@@ -19,7 +22,7 @@ class ProductoForms(forms.ModelForm):
         fields = '__all__'
 
         widgets ={
-            "fecha_fabricacion": forms.SelectDateWidget()
+            "fecha_fabricacion": DateInput(),
         }
 
 
@@ -28,8 +31,7 @@ class ExtendedUserCreationForm(UserCreationForm):
         model = User
         fields = ['username',"first_name", "last_name","email"]
     
-class DateInput(forms.DateInput):
-    input_type = 'date'
+
 class PerfilUsuarioForm(forms.ModelForm):
     class Meta:
         model=PerfilUsuario
