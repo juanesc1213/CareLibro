@@ -56,7 +56,10 @@
         <th>Direccion</th>
         <td>{{user.perfilusuario.direccion_correspondencia | title }}</td>
     </tr>
-    
+    <tr>
+        <th>Foto de Perfil</th>
+        <td><img src="{{ user.perfilusuario.foto_perfil.url }}"></td>
+    </tr>
     
 
 </table>
