@@ -35,7 +35,7 @@ class ExtendedUserCreationForm(UserCreationForm):
 class PerfilUsuarioForm(forms.ModelForm):
     class Meta:
         model=PerfilUsuario
-        fields = ['DNI',"telefono", "genero","fecha_nacimiento","lugar_nacimiento","generos_preferencia","direccion_correspondencia"]
+        fields = ['DNI',"telefono", "genero","fecha_nacimiento","lugar_nacimiento","generos_preferencia","direccion_correspondencia","foto_perfil"]
         widgets = {
             'fecha_nacimiento': DateInput(),
         }
@@ -51,5 +51,5 @@ class ExtendedUserCreationFormUpdate(forms.ModelForm):
 class PerfilUsuarioFormUpdate(forms.ModelForm):
     class Meta:
         model=PerfilUsuario
-        fields = ["telefono", "genero","lugar_nacimiento","generos_preferencia","direccion_correspondencia"]
+        fields = ["telefono", "genero","lugar_nacimiento","generos_preferencia","direccion_correspondencia","foto_perfil"]
         
