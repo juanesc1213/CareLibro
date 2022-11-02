@@ -3,66 +3,67 @@
 {% block contenido %}
 {% if user.is_authenticated %}
 
-<table class="table caption-top mt-5 table-bordered border-secondary
-            table-light table-hover">
-    <caption>
-        PERFIL DE: {{user | title }}
-    </caption>
-    <tr>
-        <th>Usuario</th>
-        <td>{{user | title }}</td>
-    </tr>
-    <tr>
-        <th>Nombre</th>
-        <td>{{user.first_name | title }}</td>
-    </tr>
-    <tr>
-        <th>Apellidos</th>
-        <td>{{user.last_name | title }}</td>
-    </tr>
-    <tr>
-        <th>Correo</th>
-        <td>{{user.email | lower }}</td>
-    </tr>
-    <tr>    
-        <th>Contraseña</th>
-        <td> ******** </td>
-    </tr>
-    <tr>
-        <th>DNI</th>
-        <td>{{user.perfilusuario.DNI | title }}</td>
-    </tr>
-    <tr>
-        <th>Telefono</th>
-        <td>{{user.perfilusuario.telefono | title }}</td>
-    </tr>
-    <tr>
-        <th>Genero</th>
-        <td>{{user.perfilusuario.get_genero_display | title }}</td>
-    </tr>
-    <tr>
-        <th>Fecha de Nacimiento</th>
-        <td>{{user.perfilusuario.fecha_nacimiento | date:"d F Y"  }}</td>
-    </tr>
-    <tr>
-        <th>Lugar de Nacimiento</th>
-        <td>{{user.perfilusuario.lugar_nacimiento.name | title }}</td>
-    </tr>
-    <tr>
-        <th>Generos de preferencia</th>
-        <td>{{user.perfilusuario.generos_preferencia | title }}</td>
-    </tr>
-    <tr>
-        <th>Direccion</th>
-        <td>{{user.perfilusuario.direccion_correspondencia | title }}</td>
-    </tr>
-    <tr>
-        <th>Foto de Perfil</th>
-        <td><img src="{{ user.perfilusuario.foto_perfil.url }}"></td>
-    </tr>
-    
+<div style="display: flex; align-items: center;">
+    <table class="table caption-top mt-5 table-bordered border-secondary
+                table-light table-hover">
+        <caption>
+            PERFIL DE: {{user | title }}
+        </caption>
+        <tr>
+            <th>Usuario</th>
+            <td>{{user | title }}</td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>{{user.first_name | title }}</td>
+        </tr>
+        <tr>
+            <th>Apellidos</th>
+            <td>{{user.last_name | title }}</td>
+        </tr>
+        <tr>
+            <th>Correo</th>
+            <td>{{user.email | lower }}</td>
+        </tr>
+        <tr>    
+            <th>Contraseña</th>
+            <td> ******** </td>
+        </tr>
+        <tr>
+            <th>DNI</th>
+            <td>{{user.perfilusuario.DNI | title }}</td>
+        </tr>
+        <tr>
+            <th>Telefono</th>
+            <td>{{user.perfilusuario.telefono | title }}</td>
+        </tr>
+        <tr>
+            <th>Genero</th>
+            <td>{{user.perfilusuario.get_genero_display | title }}</td>
+        </tr>
+        <tr>
+            <th>Fecha de Nacimiento</th>
+            <td>{{user.perfilusuario.fecha_nacimiento | date:"d F Y"  }}</td>
+        </tr>
+        <tr>
+            <th>Lugar de Nacimiento</th>
+            <td>{{user.perfilusuario.lugar_nacimiento.name | title }}</td>
+        </tr>
+        <tr>
+            <th>Generos de preferencia</th>
+            <td>{{user.perfilusuario.generos_preferencia | title }}</td>
+        </tr>
+        <tr>
+            <th>Direccion</th>
+            <td>{{user.perfilusuario.direccion_correspondencia | title }}</td>
+        </tr>
+        
+    </table>
 
-</table>
+    <td><img src="{{ user.perfilusuario.foto_perfil.url }}" style="height:16rem; width: 18rem; border: 2px solid rgb(90, 90, 90); margin-left: 20px;"></td>
+        
+</div>
+
 <table>
     <tr>      
         <a href="{% url 'modificar_perfil'  %}" class="btn btn-primary">Modificar</a>
