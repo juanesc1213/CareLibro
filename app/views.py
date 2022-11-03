@@ -155,8 +155,8 @@ def registro(request):
         'perfil_form': PerfilUsuarioForm
         }
     if request.method == 'POST':
-        formulario = ExtendedUserCreationForm(data=request.POST)
-        perfil_formulario = PerfilUsuarioForm(data=request.POST)
+        formulario = ExtendedUserCreationForm(data=request.POST,files = request.FILES)
+        perfil_formulario = PerfilUsuarioForm(data=request.POST,files = request.FILES)
         if formulario.is_valid() and perfil_formulario.is_valid():
             user = formulario.save()
             perfil = perfil_formulario.save(commit=False)

@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'crispy_forms',
     'multiselectfield',
+    'cities_light',
+    'smart_selects'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -127,3 +129,4 @@ import os
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+USE_DJANGO_JQUERY = True

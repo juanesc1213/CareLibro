@@ -17,17 +17,7 @@ class ContactoAdmin(admin.ModelAdmin):
     list_filter     = ["tipo_consulta"]
     list_per_page   = 10
 
-class PerfilUsuarioInLine(admin.StackedInline):
-    model = PerfilUsuario
-    can_delete: False
-    verbose_name_plural = "Perfiles"
-
-class CustomPerfilAdmin (UserAdmin):
-    inlines= (PerfilUsuarioInLine, )
-
-admin.site.unregister(User)
-
-admin.site.register(User,CustomPerfilAdmin)
+admin.site.register(PerfilUsuario)
 admin.site.register(Editorial)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Contacto, ContactoAdmin)

@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 from multiselectfield import MultiSelectField
 from django_countries.fields import CountryField
 from django.core.validators import MaxValueValidator
-
+from cities_light.models import Country, Region, City
+from smart_selects.db_fields import ChainedForeignKey
 # Create your models here.
 GENEROS_PREFERENCIA = ((1, 'Accion'),
               (2, 'Aventura'),
@@ -77,7 +78,9 @@ class PerfilUsuario(models.Model):
     telefono = models.IntegerField()
     genero=models.IntegerField(choices=GENERO)
     fecha_nacimiento = models.DateField()
-    lugar_nacimiento = CountryField()
+    pais = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
+    departamento = ChainedForeignKey(Region, chained_field="pais", chained_model_field="country", null=True)
+    ciudad = ChainedForeignKey(City, chained_field="departamento", chained_model_field="region", null=True)
     generos_preferencia = MultiSelectField(choices=GENEROS_PREFERENCIA,max_length=100)
     direccion_correspondencia = models.CharField(max_length=100)
     foto_perfil = models.ImageField(upload_to="fotoperfil", null=True)

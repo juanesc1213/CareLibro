@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('app.urls')),
     path('accounts/',include('django.contrib.auth.urls')),
+    path('chaining/', include('smart_selects.urls')),
 ]
 
 if settings.DEBUG:
