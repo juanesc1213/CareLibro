@@ -13,15 +13,28 @@ from django.contrib.auth.forms import UserChangeForm
 from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
+from django.db.models import Q
 
 # Create your views here.
 
 def home(request):
+    queryset = request.GET.get("buscar")
     productos = Producto.objects.all()
+    productos = Producto.objects.all()
+    """ productos = Producto.objects.filter(nombre=True) """
+    if queryset:
+        productos = Producto.objects.filter(
+            Q(nombre__icontains = queryset)|
+            Q(nombre__icontains = queryset)|
+            Q(precio__icontains = queryset)|
+            Q(genero__icontains = queryset)|
+            Q(autor__icontains = queryset)
+        ).distinct
     data= {
         'productos': productos
     }
     return render(request, 'app/home.html', data)
+    
 
 def contacto(request):
     data ={

@@ -37,6 +37,7 @@ class Producto(models.Model):
     fecha_fabricacion =     models.DateField()
     issn=                   models.IntegerField(unique = True)
     imagen =                models.ImageField(upload_to="productos", null=True)
+    quantity =              models.IntegerField(null=True)
 
     def __str__(self):
         return self.nombre
