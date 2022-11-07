@@ -42,10 +42,15 @@
                             {% endif %}
                             <div class="row mt-2">
                                 <div class="col-md-3">
+
+                                    {% csrf_token %}
+
+                                    <input type="hidden" value="{{ object.id }}" class="prod_id"> <!--referencia a linea 36 de custom.js-->
+
                                     <label for="Quantity">Cantidad</label>
                                     <div class="input-group text-center" style="width:130px;">
                                         <button class="input-group-text decrement-btn">-</button>
-                                        <input type="text" name="quantity" class="form-control qty-input text-center" value="1" onclick="update()">
+                                        <input type="text" name="quantity" class="form-control qty-input text-center" value="1" onclick="update()"> <!--referencia a linea 37 de custom.js-->
                                         <button class="input-group-text increment-btn" id="increment-btn">+</button>
                                     </div>
                                 </div>

@@ -1,0 +1,100 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block js %}
+{% endblock %}
+
+{% block contenido %}
+{% load humanize %}
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-7 ">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h6>Detalles Basicos</h6>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control" placeholder= "Ingrese su nombre">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Apellido</label>
+                            <input type="text" class="form-control" placeholder= "Ingrese su apellido">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <label>Correo</label>
+                            <input type="text" class="form-control" placeholder= "Ingrese su correo">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <label>Celular</label>
+                            <input type="text" class="form-control" placeholder= "Ingrese su Celular">
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <label>Direccion</label>
+                            <input type="text" class="form-control" placeholder= "Ingrese su direccion">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <label>Ciudad</label>
+                            <input type="text" class="form-control" placeholder= "Ingrese su Ciudad">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <label>Estado</label>
+                            <input type="text" class="form-control" placeholder= "Ingrese su estado">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <label>Pais</label>
+                            <input type="text" class="form-control" placeholder= "Ingrese su pais">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <label>Codigo Postal</label>
+                            <input type="text" class="form-control" placeholder= "Ingrese su codigo postal">
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h6>Resumen de su orden</h6>
+                    <hr>
+                    {% if cartitems %}
+                        <table class="table table-stripeds table-bordereds">
+                            <thead>
+                                <tr>
+                                    <th>Libro</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cartitems %}
+                                    <tr>
+                                        <td> 
+                                            <img src="{{ item.product.imagen.url }}" height="50px" class="me-2" width="50px">
+                                            {{ item.product.nombre }} </td>
+                                        <td> {{ item.producto_qty }} </td>
+                                        <td> {{ item.product.precio | intcomma }} </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <h6 class="fw-bold">Precio Total
+                            <span class="float-end"> $ {{ total_price | intcomma }} </span>
+                        </h6>
+                        <div class="mt-3">
+                            <a href="#" class="btn btn-success w-100"> Pagar total </a>
+                        </div>
+                    {% else %}
+                        <h4> Tu carrito está vacío </h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contenido %}

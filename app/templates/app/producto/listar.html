@@ -53,6 +53,7 @@
                     {% endif %}
                 </td>
                 <td>
+                    
                     {% if perms.app.change_producto %}
                     <a href="{% url 'modificar_producto' p.id %}" class="btn btn-primary">modificar</a>
                     {% endif %}
@@ -68,6 +69,9 @@
         </table>
     </div>
     {% include 'app/paginator.html' %}
+    {% if perms.app.change_producto %}
+                    <a href="{% url 'agregar_producto' %}" class="btn btn-primary">Agregar Libro</a>
+    {% endif %}
 </div>
 
 

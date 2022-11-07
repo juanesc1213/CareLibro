@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Editorial, Producto,Contacto, PerfilUsuario
+from .models import Editorial, Producto,Contacto, PerfilUsuario,Carrito,Tienda
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
@@ -17,6 +17,8 @@ class ContactoAdmin(admin.ModelAdmin):
     list_filter     = ["tipo_consulta"]
     list_per_page   = 10
 
+admin.site.register(Tienda)
+admin.site.register(Carrito)
 admin.site.register(PerfilUsuario)
 admin.site.register(Editorial)
 admin.site.register(Producto, ProductoAdmin)
