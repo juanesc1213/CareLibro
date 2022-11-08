@@ -18,6 +18,13 @@ GENEROS_PREFERENCIA = ((1, 'Accion'),
               (7, 'Poesia'),
               (8, 'Novela'))
 
+DIAS_SEMANA = ((1, 'Lunes'),
+              (2, 'Martes'),
+              (3, 'Miercoles'),
+              (4, 'Jueves'),
+              (5, 'Viernes'),
+              (6, 'Sabado'),
+              (7, 'Domingo'))
 
 class Editorial(models.Model):
     nombre = models.CharField(max_length=50)
@@ -48,7 +55,18 @@ opciones_consulta =[
     [2, "sugerencia"],
     [3, "felicitaciones"],
 ]
+class Tienda (models.Model):
+    nombre =                models.CharField(max_length=50)
+    dias_atencion =         MultiSelectField(choices=DIAS_SEMANA,max_length=100)
+    telefono =              models.IntegerField()
+    horario_apertura =      models.TimeField()
+    horario_cierre =        models.TimeField()
 
+class Carrito (models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    product = models.ForeignKey(Producto, on_delete = models.CASCADE)
+    producto_qty = models.IntegerField(null=False, blank = False)
+    created_at = models.DateTimeField(auto_now_add = True)
 class Contacto(models.Model):
     nombre = models.CharField(max_length=50)
     correo = models.EmailField()

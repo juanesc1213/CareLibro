@@ -20,7 +20,6 @@ from django.db.models import Q
 def home(request):
     queryset = request.GET.get("buscar")
     productos = Producto.objects.all()
-    productos = Producto.objects.all()
     """ productos = Producto.objects.filter(nombre=True) """
     if queryset:
         productos = Producto.objects.filter(
@@ -65,7 +64,8 @@ def agregar_producto(request):
         formulario = ProductoForms(data = request.POST, files = request.FILES)
         if formulario.is_valid():
             formulario.save()
-            messages.success(request,"Producto Registrado")
+            messages.success(request,"Libro Registrado")
+            return redirect(to="listar_productos")
         else:
             data["form"]= formulario
             data["mensaje"]= "Error de guardado"
@@ -122,6 +122,75 @@ def eliminar_producto(request, id):
 class DetalleLibro(generic.detail.DetailView):
     model= Producto
     template_name= 'app/producto/librodetalle.html'
+
+
+def agregar_tienda(request):
+
+    data={
+        'form': TiendaForms()
+    }
+    if request.method == 'POST':
+        formulario = TiendaForms(data = request.POST, files = request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request,"Tienda registrada")
+            return redirect(to="listar_tiendas")
+        else:
+            data["form"]= formulario
+            data["mensaje"]= "Error de guardado"
+
+
+    return render(request,'app/tienda/agregar.html',data)
+
+@permission_required('app.view_tienda')
+def listar_tiendas(request):
+    tiendas = Tienda.objects.all()
+    page = request.GET.get('page',1)
+
+    try:
+        paginator = Paginator(tiendas,5)
+        tiendas = paginator.page(page)
+    except:
+        raise Http404
+
+    data = {
+        'entity': tiendas,
+        'paginator':paginator,
+    }
+
+    return render(request,'app/tienda/listar.html',data)
+
+@permission_required('app.change_tienda')
+def modificar_tienda(request, id):
+
+    tienda = get_object_or_404(Tienda, id=id)
+
+    data = {
+        'form': TiendaForms(instance=tienda)
+    }
+    if request.method == 'POST':
+        formulario = TiendaForms(data = request.POST,instance=tienda, files = request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "Editada correctamente")
+            return redirect(to="listar_tiendas")
+        else:
+            data["form"]= formulario
+            data["mensaje"]= "Error de gurdado"
+
+    return render(request,'app/tienda/modificar.html',data)
+
+@permission_required('app.delete_tienda')
+def eliminar_tienda(request, id):
+
+    tienda = get_object_or_404(Tienda, id=id)
+    tienda.delete()
+    messages.warning(request,"Eliminada correctamente")
+    return redirect(to="listar_tienda")
+
+
+
+
 
 def ver_perfil(request):
     data = {
