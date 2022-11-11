@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+{% block js %}
+{% endblock %}
+
+
+{% block contenido %}
+
+{% load crispy_forms_tags %}
+<br>
+<div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+
+        <div class="card">
+            <div class="card-body">
+                <h2>¿Cúantas Existencias del {{ producto.nombre }} a {{ tienda.nombre }} ? </h2>
+                <hr>
+            <form action="" method="post" enctype="multipart/form-data">
+
+                {% csrf_token %}
+                <label>Número de existencias</label>
+                <input type="number" class="form-control" id="existencias" placeholder= "Ingrese las existencias deseadas" name="existencias">
+                
+                <br>
+                <div class="d-flex justify-content-left">
+                    <input type="submit" value="Guardar" class="btn btn-primary">
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <input type="reset" value="Cancelar" class="btn btn-secondary">
+                    
+
+                </div>
+                
+            </form>
+            {{ mensaje }}
+
+        </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock contenido %}

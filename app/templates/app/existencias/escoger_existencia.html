@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+
+
+{% block contenido %}
+{% load humanize %}
+<br><br>
+<div class="card">
+    <div class="card-body">
+        <h2>Listado de Libros disponibles para ingresar a {{ tienda.nombre }}</h2>
+        <hr>
+        <table class="table table-striped table-hover table-responsive-small">
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Editorial</th>
+                <th>Existencias</th>
+                <th>Opciones</th>
+            </tr>
+        
+            {% for p in entity %}
+        
+            <tr>
+                <td>{{ p.nombre | title }}</td>
+                <td>$ {{p.precio | intcomma }}</td>
+                <td>{{ p.editorial | title }}</td>
+                <td>{{p.quantity | intcomma }}</td>
+                <td>
+                    
+                    {% if perms.app.change_producto %}
+                    <a href="{% url 'agregar_existencias' tienda.id p.id %}" class="btn btn-primary">Agregar</a>
+                    {% endif %}
+
+ 
+                </td>
+            </tr>
+        
+            {% endfor %} 
+        
+        </table>
+    </div>
+    
+</div>
+
+
+
+{% endblock %}

@@ -14,6 +14,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
 from django.db.models import Q
+from django.http.response import JsonResponse
 
 # Create your views here.
 
@@ -53,6 +54,68 @@ def contacto(request):
 @login_required
 def galeria(request):
     return render(request, 'app/galeria.html')
+
+def listar_tarjetas(request):
+    tarjetas = Tarjeta.objects.all()
+    
+
+    data = {
+        'tarjetas': tarjetas,
+        'usuario' : request.user,
+       
+    }
+    return render(request, 'app/tarjetas/listar_tarjetas.html',data)
+
+
+def tarjeta(request):  #TARJETAAAAAAAAA
+    data={
+        'usuario': request.user
+    }
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            num_tarjeta_p= int(request.POST.get("num_tarjeta"))
+            nombre_propietario_p= str(request.POST.get("nombre_propietario"))
+            mes_exp_p= int(request.POST.get("mes_exp"))
+            year_exp_p= int(request.POST.get("year_exp"))
+            cvv_p= int(request.POST.get("cvv"))
+            saldo_p= int(request.POST.get("saldo"))
+            
+            print("soy gei")
+            Tarjeta.objects.create(user=request.user, num_tarjeta=num_tarjeta_p , nombre_propietario = nombre_propietario_p, mes_exp=mes_exp_p ,year_exp=year_exp_p, cvv=cvv_p, saldo=saldo_p)
+
+            messages.success(request,"Sexo")
+            return redirect(to="listar_tarjetas")
+   
+   
+    return render(request, 'app/tarjetas/tarjeta.html',data)
+
+
+def agregar_saldo(request,id):
+    tarjeta = get_object_or_404 (Tarjeta , id=id)
+    saldo_actual=tarjeta.saldo 
+    data={
+        'tarjeta': tarjeta,
+        'usuario': request.user
+    }
+    if request.method == 'POST':
+        saldo_nuevo= int(request.POST.get("saldo"))
+
+        saldo = Tarjeta.objects.get(user=request.user)
+        saldo.saldo = saldo_nuevo + saldo_actual
+        saldo.save()
+      
+    
+        messages.success(request,"Se ha agregado saldo a tu tarjeta")
+        return redirect(to="listar_tarjetas")
+    
+    return render(request,'app/tarjetas/agregar_saldo.html',data)
+
+def eliminar_tarjeta(request, id):
+
+    tarjeta = get_object_or_404(Tarjeta, id=id)
+    tarjeta.delete()
+    messages.warning(request,"Tarjeta eliminada")
+    return redirect(to="ver_perfil")
 
 @permission_required('app.add_producto')
 def agregar_producto(request):
@@ -186,8 +249,140 @@ def eliminar_tienda(request, id):
     tienda = get_object_or_404(Tienda, id=id)
     tienda.delete()
     messages.warning(request,"Eliminada correctamente")
-    return redirect(to="listar_tienda")
+    return redirect(to="listar_tiendas")
 
+
+
+def agregar_existencias(request,id,id2):
+    tienda = get_object_or_404 (Tienda , id=id)
+    producto = get_object_or_404 (Producto , id=id2)
+    data={
+        'form': ExistenciasForms(),
+        'tienda': tienda,
+        'producto': producto
+    }
+    if request.method == 'POST':
+        existencias_cant= int(request.POST.get("existencias"))
+        if (existencias_cant > producto.quantity):
+            #messages.error(request, "Cagaste")
+            return JsonResponse({'status': "No puedes agregar más existencias de las que hay"})
+        
+        if(Existencias.objects.filter(producto=producto, tienda=tienda)):
+            return JsonResponse({'status': "Ya esta este libro en esta tienda"})
+
+        else:
+            producto.quantity = producto.quantity - existencias_cant
+            producto.save()
+            print(producto.quantity)
+            Existencias.objects.create(producto=producto,tienda=tienda,existencias=existencias_cant)
+            messages.success(request,"Existencia registrada")
+            return redirect(to="listar_tiendas")
+    
+    return render(request,'app/existencias/agregar.html',data)
+
+
+def aumentar_existencias_t(request,id,id2,id3):
+    tienda = get_object_or_404 (Tienda , id=id)
+    producto = get_object_or_404 (Producto , id=id2)
+    existencia = get_object_or_404 (Existencias , id=id3)
+    existencia_seleccionada = existencia.existencias
+    data={
+        'form': ExistenciasForms(),
+        'tienda': tienda,
+        'producto': producto
+    }
+    if request.method == 'POST':
+        existencias_cant= int(request.POST.get("existencias"))
+
+        if (existencias_cant > producto.quantity):
+            #messages.error(request, "Cagaste")
+            return JsonResponse({'status': "No puedes agregar más existencias de las que hay"})
+        
+
+        else:
+            producto.quantity = producto.quantity - existencias_cant
+            
+            producto.save()
+            exis = Existencias.objects.get(producto=producto, tienda=tienda)
+            exis.existencias = existencias_cant + existencia_seleccionada
+            exis.save()
+            print(producto.quantity)
+           
+            messages.success(request,"Existencia actualizada")
+            return redirect(to="listar_tiendas")
+    
+    return render(request,'app/existencias/agregar.html',data)
+
+def eliminar_existencias_t(request,id,id2,id3):
+    tienda = get_object_or_404 (Tienda , id=id)
+    producto = get_object_or_404 (Producto , id=id2)
+    existencia = get_object_or_404 (Existencias , id=id3)
+    existencia_seleccionada = existencia.existencias
+    data={
+        'form': ExistenciasForms(),
+        'tienda': tienda,
+        'producto': producto
+    }
+    if request.method == 'POST':
+        existencias_cant= int(request.POST.get("existencias"))
+
+        if (existencias_cant > producto.quantity):
+            #messages.error(request, "Cagaste")
+            return JsonResponse({'status': "No puedes agregar más existencias de las que hay"})
+        
+
+        else:
+            producto.quantity = producto.quantity + existencias_cant
+            
+            producto.save()
+            exis = Existencias.objects.get(producto=producto, tienda=tienda)
+            exis.existencias = existencia_seleccionada - existencias_cant
+            exis.save()
+            print(producto.quantity)
+           
+            messages.success(request,"Existencia actualizada")
+            return redirect(to="listar_tiendas")
+    
+    return render(request,'app/existencias/agregar.html',data)
+
+
+def escoger_existencias(request,id):
+    tienda = get_object_or_404(Tienda, id=id)
+    libros = Producto.objects.all()
+    page = request.GET.get('page',1)
+
+    try:
+        paginator = Paginator(libros,5)
+        libros = paginator.page(page)
+    except:
+        raise Http404
+
+    data = {
+        'tienda' : tienda,
+        'entity': libros,
+        'paginator':paginator,
+    }
+
+    return render(request,'app/existencias/escoger_existencia.html',data)
+
+def listar_existencias(request,id):
+    existencias = Existencias.objects.all()
+    tienda = get_object_or_404(Tienda, id=id)
+    page = request.GET.get('page',1)
+
+    try:
+        paginator = Paginator(existencias,10)
+        existencias = paginator.page(page)
+    except:
+        raise Http404
+
+    data = {
+        'existencias': existencias,
+        'tienda' : tienda,
+        'paginator':paginator,
+    }
+
+    return render(request,'app/existencias/listar.html',data)
 
 
 

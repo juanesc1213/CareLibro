@@ -15,6 +15,11 @@ urlpatterns = [
     path('listar-tiendas/',    listar_tiendas,    name="listar_tiendas"),
     path('modificar-tienda/<id>/',    modificar_tienda,    name="modificar_tienda"),
     path('eliminar-tienda/<id>/',    eliminar_tienda,    name="eliminar_tienda"),
+    path('agregar-existencias/<id>/<id2>/',    agregar_existencias,    name="agregar_existencias"),
+    path('aumentar-existencias/<id>/<id2>/<id3>',    aumentar_existencias_t,    name="aumentar_existencias"),
+    path('eliminar-existencias/<id>/<id2>/<id3>',    eliminar_existencias_t,    name="eliminar_existencias"),
+    path('listar-existencias/<id>/',    listar_existencias,    name="listar_existencias"),
+    path('escoger-existencia/<id>/',    escoger_existencias,    name="escoger_existencia"),
     path('registro/',    registro,    name="registro"),
     path('ver-perfil/',    ver_perfil,    name="ver_perfil"),
     path('modificar-perfil/',    modificar_perfil,    name="modificar_perfil"),
@@ -24,5 +29,10 @@ urlpatterns = [
     path('cart', cart.viewcart, name="cart"),
     path('update-cart', cart.updatecart, name="updatecart"),
     path('delete-cart-item', cart.deletecartitem, name="deletecartitem"),
-    path('checkout', checkout.index, name="checkout")
+    path('checkout', checkout.index, name="checkout"),
+    path('listar-tarjetas/',    listar_tarjetas,    name="listar_tarjetas"),
+    path('agregar-saldo/<id>',    agregar_saldo,    name="agregar_saldo"),
+    path('eliminar-tarjeta/<id>',    eliminar_tarjeta,    name="eliminar_tarjeta"),
+    path('tarjeta/',    tarjeta,    name="tarjeta")
+    
 ]

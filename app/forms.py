@@ -16,7 +16,8 @@ class ContactoForms(forms.ModelForm):
         fields = '__all__'
 
         
-        
+
+
 class TiendaForms(forms.ModelForm):
     class Meta:
         model = Tienda
@@ -25,6 +26,13 @@ class TiendaForms(forms.ModelForm):
             'horario_apertura': forms.TimeInput(attrs={'type': 'time'}),
             'horario_cierre': forms.TimeInput(attrs={'type': 'time'})
         }
+
+
+class ExistenciasForms(forms.ModelForm):
+    
+    class Meta:
+        model = Existencias
+        fields = ["existencias"]
 
 class ProductoForms(forms.ModelForm):
     fecha_fabricacion = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))

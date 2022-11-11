@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+
+{% block contenido %}
+
+{% load humanize %}
+<div class="card-body">
+    <h2>Listado de tarjetas de {{usuario.first_name}}</h2>
+    <hr>
+    <table class="table table-striped table-hover table-responsive-small">
+        <tr>
+            <th>Tarjeta</th>
+            
+            <th># de tarjeta</th>
+            <th>Saldo en la tienda</th>
+            <th>Opciones</th>
+        </tr>
+    
+        {% for p in tarjetas %}
+            {% if p.user.id == usuario.id %}
+                <tr>
+                    <td>{{ p.nombre_propietario | title }}</td>
+                    
+                    <td>  {{p.num_tarjeta| title }} </td>
+                    <td> $ {{p.saldo| intcomma }} pesos</td>
+                    <td> <a href="{% url 'agregar_saldo' p.id %}" class="btn btn-primary">Agregar saldo</a>
+ 
+                        <a href="{% url 'eliminar_tarjeta' p.id %}" class="btn btn-warning">Eliminar Tarjeta</a> </td>
+                    
+                </tr>
+
+            {% endif %}
+        {% endfor %} 
+    
+    </table>
+                       
+
+    <a href="{% url 'tarjeta' %}" class="btn btn-primary">Agregar Tarjetas</a>
+</div>
+
+
+{% endblock %}
