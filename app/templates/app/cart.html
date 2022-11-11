@@ -15,6 +15,7 @@
             <div class="col-md-12">
                 <div class="card shadow">
                     <div class="card-body cartdata">
+                        
                         {% if cart %}
                             {% for item in cart %}
                                 <div class="row product_data">
@@ -50,6 +51,7 @@
                                 
                             {% endfor %}
                             <a href="{% url 'checkout' %}" class="btn btn-outline-success" >Checkout </a>
+                            <span>{{ user.perfilusuario.ciudad }}</span>
                         {% else %}
                             <h4> El carrito está vacio </h4>
                         {% endif %}

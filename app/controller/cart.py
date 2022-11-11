@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages 
 
 
-from app.models import Carrito, Producto
+from app.models import Carrito, Producto, PerfilUsuario
 
 def addtocart(request):
     if request.method == 'POST':
@@ -32,6 +32,7 @@ def addtocart(request):
 
 def viewcart(request):
     cart = Carrito.objects.filter(user=request.user)
+    
     context = {'cart':cart}
     return render(request, "app/cart.html", context)
 
