@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Editorial, Producto,Contacto, PerfilUsuario,Carrito,Tienda, Existencias,Tarjeta
+from .models import Editorial, Producto,Contacto, PerfilUsuario,Carrito,Tienda, Existencias,Tarjeta,forum, Discussion
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
@@ -16,6 +16,9 @@ class ContactoAdmin(admin.ModelAdmin):
     list_display    = ["nombre", "tipo_consulta"]
     list_filter     = ["tipo_consulta"]
     list_per_page   = 10
+
+admin.site.register(forum)
+admin.site.register(Discussion)
 admin.site.register(Tarjeta)
 admin.site.register(Existencias)
 admin.site.register(Tienda)

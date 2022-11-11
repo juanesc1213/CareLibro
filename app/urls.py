@@ -33,6 +33,11 @@ urlpatterns = [
     path('listar-tarjetas/',    listar_tarjetas,    name="listar_tarjetas"),
     path('agregar-saldo/<id>',    agregar_saldo,    name="agregar_saldo"),
     path('eliminar-tarjeta/<id>',    eliminar_tarjeta,    name="eliminar_tarjeta"),
-    path('tarjeta/',    tarjeta,    name="tarjeta")
+    path('tarjeta/',    tarjeta,    name="tarjeta"),
+    path('forum/', forums, name="forum"),
+    path('addInForum/',addInForum,name='addInForum'),
+    path('addInDiscussion/',addInDiscussion,name='addInDiscussion'),
+    path('noticias/', noticia, name="noticia"),
+    path('noticia-producto/<int:pk>/', NoticiaProducto.as_view(), name="noticia_producto")
     
 ]
