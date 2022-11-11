@@ -62,11 +62,21 @@ class Tienda (models.Model):
     horario_apertura =      models.TimeField()
     horario_cierre =        models.TimeField()
 
+    def __str__(self):
+        return self.nombre
+
 class Carrito (models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     product = models.ForeignKey(Producto, on_delete = models.CASCADE)
     producto_qty = models.IntegerField(null=False, blank = False)
     created_at = models.DateTimeField(auto_now_add = True)
+
+class Existencias(models.Model):
+    producto = models.ForeignKey(Producto, on_delete = models.CASCADE)
+    tienda = models.ForeignKey(Tienda, on_delete = models.CASCADE)
+    existencias= models.IntegerField(null= True)
+
+
 class Contacto(models.Model):
     nombre = models.CharField(max_length=50)
     correo = models.EmailField()
@@ -106,3 +116,12 @@ class PerfilUsuario(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Tarjeta(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    num_tarjeta = models.IntegerField()
+    nombre_propietario = models.CharField(max_length=50,null=True)
+    mes_exp = models.IntegerField()
+    year_exp = models.IntegerField()
+    cvv = models.IntegerField()
+    saldo = models.IntegerField()

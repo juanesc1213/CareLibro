@@ -47,7 +47,7 @@
                 <td>{{ p.horario_apertura | time:"G:i" }}-{{ p.horario_cierre | time:"G:i"  }}</td>
                 <td>{{p.dias_atencion | intcomma }}</td>
                 <td>
-                    
+                    <a href="{% url 'listar_existencias' p.id %}" class="btn btn-warning"> Existencias</a>
                     {% if perms.app.change_tienda %}
                     <a href="{% url 'modificar_tienda' p.id %}" class="btn btn-primary">modificar</a>
                     {% endif %}

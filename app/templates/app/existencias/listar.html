@@ -1,0 +1,35 @@
+{% extends 'app/base.html' %}
+
+{% block contenido %}
+
+
+<div class="card-body">
+    <h2>Listado de Libros de {{tienda.nombre}}</h2>
+    <hr>
+    <table class="table table-striped table-hover table-responsive-small">
+        <tr>
+            <th>Libro</th>
+            <th>Existencias</th>
+            
+            <th>Opciones</th>
+        </tr>
+    
+        {% for p in existencias %}
+            {% if p.tienda.id == tienda.id %}
+                <tr>
+                    <td>{{ p.producto | title }}</td>
+                    <td> {{p.existencias| title }}</td>
+                    
+                    <td><a href="{% url 'aumentar_existencias' p.tienda.id p.producto.id p.id %}" class="btn btn-primary">Aumentar Existencias</a></td>
+                    <td><a href="{% url 'eliminar_existencias' p.tienda.id p.producto.id p.id %}" class="btn btn-danger">Eliminar Existencias</a></td>
+                </tr>
+
+            {% endif %}
+        {% endfor %} 
+    
+    </table>
+    <a href="{% url 'escoger_existencia' tienda.id %}" class="btn btn-primary">Agregar Existencias</a>
+</div>
+
+
+{% endblock %}
