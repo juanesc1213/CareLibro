@@ -125,3 +125,24 @@ class Tarjeta(models.Model):
     year_exp = models.IntegerField()
     cvv = models.IntegerField()
     saldo = models.IntegerField()
+
+class forum(models.Model):
+    name=models.CharField(max_length=200,default="anonymous" )
+    email=models.CharField(max_length=200,null=True)
+    topic= models.CharField(max_length=300)
+    description = models.CharField(max_length=1000,blank=True)
+    link = models.CharField(max_length=100 ,null =True)
+    date_created=models.DateTimeField(auto_now_add=True,null=True)
+    user= models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+class noticia(models.Model):
+    producto=               models.ForeignKey(Producto, on_delete=models.CASCADE)
+    descripcion =           models.TextField(null=True)
+    fecha_publicacion =     models.DateTimeField(auto_now_add=True, null=True)
+
+
+#child model
+class Discussion(models.Model):
+    forum = models.ForeignKey(forum,blank=True,on_delete=models.CASCADE)
+    discuss = models.CharField(max_length=1000)
+    user= models.ForeignKey(User,on_delete=models.CASCADE, null=True)

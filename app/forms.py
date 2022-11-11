@@ -81,3 +81,12 @@ class PerfilUsuarioFormUpdate(forms.ModelForm):
         model=PerfilUsuario
         fields = ["telefono", "genero",'pais','departamento','ciudad',"generos_preferencia","direccion_correspondencia","foto_perfil"]
         
+class CreateInForum(ModelForm):
+    class Meta:
+        model= forum
+        fields = "__all__"
+
+class CreateInDiscussion(ModelForm):
+    class Meta:
+        model= Discussion
+        fields = "__all__"
