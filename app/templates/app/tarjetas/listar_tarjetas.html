@@ -22,8 +22,9 @@
                     
                     <td>  {{p.num_tarjeta| title }} </td>
                     <td> $ {{p.saldo| intcomma }} pesos</td>
-                    <td> <button class="btn btn-primary"> Añadir saldo</button> 
-                     <button class="btn btn-warning" justify> Eliminar Tarjeta</button> </td>
+                    <td> <a href="{% url 'agregar_saldo' p.id %}" class="btn btn-primary">Agregar saldo</a>
+ 
+                        <a href="{% url 'eliminar_tarjeta' p.id %}" class="btn btn-warning">Eliminar Tarjeta</a> </td>
                     
                 </tr>
 
@@ -31,6 +32,8 @@
         {% endfor %} 
     
     </table>
+                       
+
     <a href="{% url 'tarjeta' %}" class="btn btn-primary">Agregar Tarjetas</a>
 </div>
 

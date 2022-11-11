@@ -90,6 +90,33 @@ def tarjeta(request):  #TARJETAAAAAAAAA
     return render(request, 'app/tarjetas/tarjeta.html',data)
 
 
+def agregar_saldo(request,id):
+    tarjeta = get_object_or_404 (Tarjeta , id=id)
+    saldo_actual=tarjeta.saldo 
+    data={
+        'tarjeta': tarjeta,
+        'usuario': request.user
+    }
+    if request.method == 'POST':
+        saldo_nuevo= int(request.POST.get("saldo"))
+
+        saldo = Tarjeta.objects.get(user=request.user)
+        saldo.saldo = saldo_nuevo + saldo_actual
+        saldo.save()
+      
+    
+        messages.success(request,"Se ha agregado saldo a tu tarjeta")
+        return redirect(to="listar_tarjetas")
+    
+    return render(request,'app/tarjetas/agregar_saldo.html',data)
+
+def eliminar_tarjeta(request, id):
+
+    tarjeta = get_object_or_404(Tarjeta, id=id)
+    tarjeta.delete()
+    messages.warning(request,"Tarjeta eliminada")
+    return redirect(to="ver_perfil")
+
 @permission_required('app.add_producto')
 def agregar_producto(request):
 

@@ -31,6 +31,8 @@ urlpatterns = [
     path('delete-cart-item', cart.deletecartitem, name="deletecartitem"),
     path('checkout', checkout.index, name="checkout"),
     path('listar-tarjetas/',    listar_tarjetas,    name="listar_tarjetas"),
+    path('agregar-saldo/<id>',    agregar_saldo,    name="agregar_saldo"),
+    path('eliminar-tarjeta/<id>',    eliminar_tarjeta,    name="eliminar_tarjeta"),
     path('tarjeta/',    tarjeta,    name="tarjeta")
     
 ]
