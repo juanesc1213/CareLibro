@@ -23,7 +23,6 @@ LOGOUT_REDIRECT_URL = '/'
 # Application definition
 
 INSTALLED_APPS = [
-    'app',
     'admin_interface',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,13 +30,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'app',
     'colorfield',
     'django.contrib.humanize',
     'crispy_forms',
     'multiselectfield',
-    'cities_light',
-    'smart_selects'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -130,4 +127,3 @@ import os
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-USE_DJANGO_JQUERY = True

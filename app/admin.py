@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Editorial, Producto,Contacto, PerfilUsuario,Carrito,Tienda, Existencias,Tarjeta
+from .models import Editorial, Producto,Contacto, PerfilUsuario, forum, Discussion
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
@@ -16,11 +16,20 @@ class ContactoAdmin(admin.ModelAdmin):
     list_display    = ["nombre", "tipo_consulta"]
     list_filter     = ["tipo_consulta"]
     list_per_page   = 10
-admin.site.register(Tarjeta)
-admin.site.register(Existencias)
-admin.site.register(Tienda)
-admin.site.register(Carrito)
-admin.site.register(PerfilUsuario)
+
+class PerfilUsuarioInLine(admin.StackedInline):
+    model = PerfilUsuario
+    can_delete: False
+    verbose_name_plural = "Perfiles"
+
+class CustomPerfilAdmin (UserAdmin):
+    inlines= (PerfilUsuarioInLine, )
+
+admin.site.unregister(User)
+
+admin.site.register(User,CustomPerfilAdmin)
 admin.site.register(Editorial)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Contacto, ContactoAdmin)
+admin.site.register(forum)
+admin.site.register(Discussion)
