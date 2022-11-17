@@ -17,6 +17,16 @@ class ContactoAdmin(admin.ModelAdmin):
     list_filter     = ["tipo_consulta"]
     list_per_page   = 10
 
+class PerfilInline(admin.StackedInline):
+    model= PerfilUsuario
+    can_delete = False
+    exclude = ['generos_preferencia','direccion_correspondencia']
+
+class AdminCustom(UserAdmin):
+    inlines = (PerfilInline,)
+
+admin.site.unregister(User)
+admin.site.register(User, AdminCustom)
 admin.site.register(forum)
 admin.site.register(Discussion)
 admin.site.register(Tarjeta)
