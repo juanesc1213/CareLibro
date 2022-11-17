@@ -40,7 +40,7 @@ urlpatterns = [
     path('tarjeta/',    tarjeta,    name="tarjeta"),
     path('forum/', forums, name="forum"),
     path('addInForum/',addInForum,name='addInForum'),
-    path('addInDiscussion/',addInDiscussion,name='addInDiscussion'),
+    path('addInDiscussion/<id>/',addInDiscussion,name='addInDiscussion'),
     path('noticias/', noticia, name="noticia"),
     path('noticia-producto/<int:pk>/', NoticiaProducto.as_view(), name="noticia_producto")
     

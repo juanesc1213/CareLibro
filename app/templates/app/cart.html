@@ -51,7 +51,7 @@
                                 
                             {% endfor %}
                             {% if user.perfilusuario.pais.name == "Colombia" %}
-                                <a href="{% url 'checkout' %}" class="btn btn-outline-success float-end" >Checkout </a>
+                                <a href="{% url 'checkout' %}" class="btn btn-outline-success float-end" >Realizar envio </a>
                                 <a href="{% url 'recoger_tienda' %}" class="btn btn-success float-end" >Recoger en tienda </a>
                             {% else %}
                                 <a href="{% url 'checkout' %}" class="btn btn-outline-success float-end" > Realizar envio </a>

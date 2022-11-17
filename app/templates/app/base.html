@@ -42,7 +42,7 @@
 
                     
 
-                    {% if perms.app.add_producto %}
+                    {% if request.user.groups.all.0.name == "Administrador" %}
                     <li><a href="{% url 'listar_productos' %}">Administrar Libros</a></li>
                     <li><a href="{% url 'listar_tiendas' %}">Administrar Tiendas</a></li>
                     {% endif %}
@@ -56,9 +56,9 @@
                     <li><a href="{% url 'forum' %}"> Foro</a></li>
 
                     <li><a href="{% url 'noticia' %}"> Noticias</a></li>
-                    
+                    {% if request.user.groups.all.0.name == "Cliente" %}
                     <li><a href="{% url 'cart' %}"> Carrito </a></li>
-                    
+                    {% endif %}
                     <li>
                         <form method="get" class="d-flex" role="search">
                             <input class="form-control me-2" type="search" name="buscar" value="{{ request.GET.buscar }}" placeholder="Buscar Libro" aria-label="Search"><button class="btn btn-outline-warning" type="submit">Buscar</button>

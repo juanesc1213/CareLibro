@@ -83,7 +83,7 @@ def tarjeta(request):  #TARJETAAAAAAAAA
             
             Tarjeta.objects.create(user=request.user, num_tarjeta=num_tarjeta_p , nombre_propietario = nombre_propietario_p, mes_exp=mes_exp_p ,year_exp=year_exp_p, cvv=cvv_p, saldo=saldo_p)
 
-            messages.success(request,"Sexo")
+            messages.success(request,"Tarjeta agregada")
             return redirect(to="listar_tarjetas")
    
    
@@ -572,23 +572,33 @@ def forums(request):
     return render(request,'app/forum.html',context)
 
 def addInForum(request):
-    form = CreateInForum()
+    usuario=request.user
     if request.method == 'POST':
-        form = CreateInForum(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    context ={'form':form}
+        if request.user.is_authenticated:
+            tema_foro= str(request.POST.get("tema"))
+            descripcion_foro= str(request.POST.get("descripcion"))
+            print(tema_foro)
+            forum.objects.create(user=request.user, tema=tema_foro, descripcion=descripcion_foro)
+
+            messages.success(request,"Tu tema ha sido registrado!")
+            
+            return redirect(to="forum")
+
+    context ={'usuario':usuario}
     return render(request,'app/addInForum.html',context)
 
-def addInDiscussion(request):
-    form = CreateInDiscussion()
+def addInDiscussion(request,id):
+    respuesta_a =get_object_or_404(forum,id=id)
+    
     if request.method == 'POST':
-        form = CreateInDiscussion(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    context ={'form':form}
+        discussion= str(request.POST.get("tema"))
+    
+        Discussion.objects.create(forum=respuesta_a, discuss=discussion, user=request.user)
+        messages.success(request,"Tu respuesta ha sido registrada!")
+            
+        return redirect(to="forum")
+
+    context ={'respuesta':respuesta_a}
     return render(request,'app/addInDiscussion.html',context)
 
 class NoticiaProducto(generic.detail.DetailView):
