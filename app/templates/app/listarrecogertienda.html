@@ -1,0 +1,47 @@
+{% extends 'app/base.html' %}
+
+
+{% block contenido %}
+{% load humanize %}
+<br><br>
+<div class="card">
+    <div class="card-body">
+        <h2>Listado de Tiendas</h2>
+        <hr>
+        <table class="table table-striped table-hover table-responsive-small">
+            <tr>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Horarios</th>
+                <th>Dias de Atencion</th>
+                <th>Opciones</th>
+            </tr>
+        
+            {% for p in entity %}
+        
+            <tr>
+                <td>{{ p.nombre | title }}</td>
+                <td> {{p.telefono | title }}</td>
+                <td>{{ p.horario_apertura | time:"G:i" }}-{{ p.horario_cierre | time:"G:i"  }}</td>
+                <td>{{p.dias_atencion | intcomma }}</td>
+                <td>
+                    <a href="{% url 'checkout_tienda' p.id %}" class="btn btn-primary"> Escoger tienda</a>
+                    
+
+                    
+                </td>
+            </tr>
+        
+            {% endfor %} 
+        
+        </table>
+    </div>
+    {% include 'app/paginator.html' %}
+    {% if perms.app.change_tienda %}
+                    <a href="{% url 'agregar_tienda' %}" class="btn btn-primary">Agregar Tienda</a>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

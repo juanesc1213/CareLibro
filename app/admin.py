@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Editorial, Producto,Contacto, PerfilUsuario,Carrito,Tienda, Existencias,Tarjeta,forum, Discussion
+from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
@@ -27,3 +27,5 @@ admin.site.register(PerfilUsuario)
 admin.site.register(Editorial)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Contacto, ContactoAdmin)
+admin.site.register(Orden)
+admin.site.register(OrdenItem)

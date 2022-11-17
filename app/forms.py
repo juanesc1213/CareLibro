@@ -35,7 +35,7 @@ class ExistenciasForms(forms.ModelForm):
         fields = ["existencias"]
 
 class ProductoForms(forms.ModelForm):
-    fecha_fabricacion = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    
     def clean_fecha_fabricacion(self):
         dob = self.cleaned_data['fecha_fabricacion']
         hoy= date.today()
@@ -45,8 +45,16 @@ class ProductoForms(forms.ModelForm):
     class Meta:
         model = Producto
         fields = '__all__'
+        widgets= {
+            'fecha_fabricacion': forms.DateInput(attrs={'type': 'date'})
+        }
 
-        
+class ProductoFormsUpdate(forms.ModelForm):
+    
+    class Meta:
+        model = Producto
+        fields = '__all__'
+        exclude = ('fecha_fabricacion',)
 
 
 class ExtendedUserCreationForm(UserCreationForm):
