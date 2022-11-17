@@ -14,7 +14,7 @@
             <form action="" method="post" enctype="multipart/form-data">
 
                 {% csrf_token %}
-
+                {{ perfil_form.media.js }}
                 {{ form | crispy }}
                 {{ perfil_form | crispy }}
 

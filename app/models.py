@@ -110,9 +110,9 @@ class PerfilUsuario(models.Model):
     pais = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
     departamento = ChainedForeignKey(Region, chained_field="pais", chained_model_field="country", null=True)
     ciudad = ChainedForeignKey(City, chained_field="departamento", chained_model_field="region", null=True)
-    generos_preferencia = MultiSelectField(choices=GENEROS_PREFERENCIA,max_length=100)
-    direccion_correspondencia = models.CharField(max_length=100)
-    foto_perfil = models.ImageField(upload_to="fotoperfil", null=True)
+    generos_preferencia = MultiSelectField(choices=GENEROS_PREFERENCIA,max_length=100,null=True,blank=True)
+    direccion_correspondencia = models.CharField(max_length=100, null=True,blank=True)
+    foto_perfil = models.ImageField(upload_to="fotoperfil", null=True, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -127,13 +127,11 @@ class Tarjeta(models.Model):
     saldo = models.IntegerField()
 
 class forum(models.Model):
-    name=models.CharField(max_length=200,default="anonymous" )
-    email=models.CharField(max_length=200,null=True)
-    topic= models.CharField(max_length=300)
-    description = models.CharField(max_length=1000,blank=True)
-    link = models.CharField(max_length=100 ,null =True)
-    date_created=models.DateTimeField(auto_now_add=True,null=True)
     user= models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+    tema= models.CharField(max_length=300)
+    descripcion = models.CharField(max_length=1000,blank=True)
+    date_created=models.DateTimeField(auto_now_add=True,null=True)
+    
 
 class noticia(models.Model):
     producto=               models.ForeignKey(Producto, on_delete=models.CASCADE)
@@ -146,3 +144,40 @@ class Discussion(models.Model):
     forum = models.ForeignKey(forum,blank=True,on_delete=models.CASCADE)
     discuss = models.CharField(max_length=1000)
     user= models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+
+class Orden(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    fname=models.CharField(max_length=150, null=True)
+    lname=models.CharField(max_length=150, null=True)
+    email=models.CharField(max_length=150, null=True)
+    celular=models.CharField(max_length=150, null=True)
+    direccion=models.TextField( null=True)
+    pais=models.CharField(max_length=150, null=True)
+    ciudad=models.CharField(max_length=150, null=True)
+    dni=models.CharField(max_length=150, null=True)
+    fecha_nacimiento=models.CharField(max_length=150, null=True)
+    precio_total = models.FloatField(null=True)
+    forma_pago = models.CharField(max_length=150, null=True)
+    forma_pago_id = models.CharField(max_length=150, null=True)
+    statusdeorden = {
+        ('Pendiente','Pendiente'),
+        ('En envio','En envio'),
+        ('Completado','Completado'),
+    }
+    estatus = models.CharField(max_length=150,choices=statusdeorden,default ='Pendiente')
+    mensaje =models.TextField( null=True)
+    seguimiento_num = models.CharField(max_length=150, null=True)
+    creado_en = models.DateTimeField(auto_now_add=True)
+    actualizado_en = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '{} - {}'.format(self.id, self.seguimiento_num)
+
+class OrdenItem(models.Model):
+    orden = models.ForeignKey(Orden, on_delete = models.CASCADE)
+    producto =models.ForeignKey(Producto, on_delete = models.CASCADE)
+    precio = models.FloatField(null=True)
+    cantidad = models.IntegerField(null=True)
+
+    def __str__(self):
+        return '{} - {}'.format(self.orden.id, self.orden.seguimiento_num)

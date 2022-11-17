@@ -50,15 +50,18 @@
             <th>Ciudad de Nacimiento</th>
             <td>{{user.perfilusuario.ciudad | title }}</td>
         </tr>
+        {% if request.user.groups.all.0.name == "Cliente" %}
         <tr>
             <th>Generos de preferencia</th>
             <td>{{user.perfilusuario.generos_preferencia | title }}</td>
         </tr>
+        {% endif %}
+        {% if request.user.groups.all.0.name == "Cliente" %}
         <tr>
             <th>Direccion</th>
             <td>{{user.perfilusuario.direccion_correspondencia | title }}</td>
         </tr>
-        
+        {% endif %}
     </table>
 
    <td><img src="{{ user.perfilusuario.foto_perfil.url }}" style="height:16rem; width: 18rem; border: 2px solid rgb(90, 90, 90); margin-left: 20px;"></td> 
@@ -70,7 +73,9 @@
         <a href="{% url 'modificar_perfil'  %}" class="btn btn-primary">Modificar</a>
         <a href="{% url 'cambiar_contraseña'  %}" class="btn btn-primary">Modificar contraseña</a>
         <a href="{% url 'eliminar_perfil' request.user.id %}" class="btn btn-danger">Eliminar</a>
+        {% if request.user.groups.all.0.name == "Cliente" %}
         <a href="{% url 'listar_tarjetas' %}" class="btn btn-warning">Ver Tarjetas</a>
+        {% endif %}
         
     </tr>
 </table>

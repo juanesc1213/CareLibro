@@ -1,17 +1,30 @@
 <head>
-    <style>
-        form{
-            border:4px solid black;
-            margin: 0 auto;
-            padding: 40px;
-            width: fit-content;
-        }
-    </style>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"0>
 
 </head>
-<form action="{% url 'addInDiscussion' %}" method="POST">
+<form action="{% url 'addInDiscussion' respuesta.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" class="btn btn-success" value="submit">
+    <h5> ¿Qué quieres responder de {{ respuesta.tema }} ?</h6>
+    
+    <div class="container rounded border border-3 border-secondary">
+        <div class="inputBox mt-2 mb-3">
+            <label for="tema" class="form-label">Respuesta</label>
+            <input type="text" class="form-control" placeholder="Relacionado a la libreria" id="tema"  name="tema">
+        </div>
+    </div>
+    <input type="submit" value="Publicar" class="submit-btn btn btn-primary mt-3">
 </form>
+<style>
+        
+    form{
+        background-color: white;
+        border:4px solid black;
+        margin: 0 auto;
+        padding: 40px;
+        width: fit-content;
+    }
+    body {
+        background-image: url('https://p4.wallpaperbetter.com/wallpaper/427/799/775/library-artwork-books-wallpaper-preview.jpg');
+    }
+</style>

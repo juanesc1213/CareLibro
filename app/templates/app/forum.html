@@ -6,47 +6,47 @@
 <body>
         <h2 class="jumbotron">
             Discusiones Activas: {{count}}
-            <form method="POST" action="{% url 'addInForum' %}">
-                {% csrf_token %}
-            <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Agregar</button>
-            </form>
+            
+        
+            <a href="{% url 'addInForum'  %}" class="btn btn-primary"> Agregar</a>
+            
         </h2>
             <div class="card-columns" style="padding: 10px; margin: 20px;"></div>
 
 
-            {%for forum in forums %}
+            {% for forum in forums %}
 
                 <div class="card box container">
                     <br>
                     <h5 class="card-title">
-                        <a href='{{forum.link}}'><h3>{{forum.topic}}</h3></a> 
+                        <a href='{{forum.link}}'><h3>{{forum.tema}}</h3></a> 
                         <div class="card-body container">
-                                <p>{{forum.description}}</p>
+                                <p>{{forum.descripcion}}</p>
                             </h5>
                             <hr>
-                            <p> By: {{forum.name}}</p>
-                            email- {{forum.email}}
+                            <p> De: {{forum.user.first_name}}</p>
+                            email- {{forum.user.email}}
                             <hr>     
                             <h4>Respuestas:</h4>
-                            {%for discuss in discussions%}
-                            {%for objs in discuss%}  
+                            {% for discuss in discussions %}
+                            {% for objs in discuss %}  
                             {% if objs.forum == forum %}
-                               {{objs.discuss}}
+                               {{objs.discuss}} -- Respuesta del usuario: {{forum.user}}
                                <br>
                                <hr>
                             {% endif %}
-                            {%endfor%}
-                            {%endfor%}
-                            <form method="POST" action="{% url 'addInDiscussion' %}">
-                                {% csrf_token %}
-                            <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Agregar</button>
-                            </form>
+                            {% endfor %}
+                            {% endfor %}
+                           
+                            
+                            <a href="{% url 'addInDiscussion' forum.id %}" class="btn btn-primary">Agregar Respuesta</a>            
                         </div>
                 </div>
             </div>
+            {%endfor%}
+
             <br>
 
-            {%endfor%}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
