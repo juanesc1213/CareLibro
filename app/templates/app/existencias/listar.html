@@ -26,10 +26,11 @@
 
             {% endif %}
         {% endfor %} 
-    
+        {% include 'app/paginator.html' %}
     </table>
     <a href="{% url 'escoger_existencia' tienda.id %}" class="btn btn-primary">Agregar Existencias</a>
 </div>
 
 
 {% endblock %}
+
