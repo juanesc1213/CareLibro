@@ -341,7 +341,7 @@ def checkout_tienda_orden(request,id):
                 return JsonResponse({'status': "No tienes suficiente saldo"})
         else:
             return JsonResponse({'status': "Tienes que tener una tarejta seleccionada"})
-
+        trackno = 'orden'+str(random.randint(1111111,9999999))
         while Orden.objects.filter(seguimiento_num=trackno) is None:
             trackno = 'sharma'+str(random.randint(1111111,9999999))
         

@@ -31,11 +31,11 @@
                             {% for discuss in discussions %}
                             {% for objs in discuss %}  
                             {% if objs.forum == forum %}
-                                {% if request.user.groups.all.0.name == "Cliente" %}
-                                {{objs.discuss}} -- Respuesta del usuario: {{forum.user}}
+                                {% if objs.user.groups.all.0.name == "Cliente" %}
+                                {{objs.discuss}} -- Respuesta del usuario: {{objs.user}}
                                 {% endif %}
-                                {% if request.user.groups.all.0.name == "Administrador" %}
-                                {{objs.discuss}} -- Respuesta del administrador: {{forum.user}}
+                                {% if objs.user.groups.all.0.name == "Administrador" %}
+                                {{objs.discuss}} -- Respuesta del administrador: {{objs.user}}
                                 {% endif %}
                                <br>
                                <hr>
