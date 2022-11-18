@@ -214,7 +214,7 @@
             <div class="box">
                 <span>cvv</span>
                 <div class="cvv-box"></div>
-                <img src="{% static 'app/image/visa.png.jpeg' %}" alt="">
+                <img src="{% static 'app/image/visa.png' %}" alt="">
             </div>
         </div>
 
@@ -225,7 +225,7 @@
         <h6> Tarjeta del usuario {{ usuario.first_name }}</h6>
         <div class="inputBox">
             <span>número de tarjeta</span>
-            <input type="text" maxlength="16" class="card-number-input" id="num_tarjeta"  name="num_tarjeta">
+            <input type="text"min = "1111111111111111" max="999999999999999" class="card-number-input" id="num_tarjeta"  name="num_tarjeta">
         </div>
         <div class="inputBox">
             <span>Propietario</span>
