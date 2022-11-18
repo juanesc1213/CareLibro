@@ -35,7 +35,7 @@
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Editorial</th>
-                <th>Es nuevo</th>
+                <th>Unidades</th>
                 <th>Opciones</th>
             </tr>
         
@@ -45,13 +45,7 @@
                 <td>{{ p.nombre | title }}</td>
                 <td>$ {{p.precio | intcomma }}</td>
                 <td>{{ p.editorial | title }}</td>
-                <td>
-                    {% if p.nuevo %}
-                    SI
-                    {% else %}
-                    NO
-                    {% endif %}
-                </td>
+                <td>{{ p.quantity | intcomma }} </td>
                 <td>
                     
                     {% if perms.app.change_producto %}
