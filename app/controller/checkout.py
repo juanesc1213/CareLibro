@@ -58,14 +58,23 @@ def placeorder (request):
         numtarjeta=int(request.POST.get('forma_pago'))
         print(numtarjeta)
         if (Tarjeta.objects.filter(user=request.user,num_tarjeta=numtarjeta)):
+
             tarj=Tarjeta.objects.get(user=request.user,num_tarjeta=numtarjeta)
-            tarj.saldo = tarj.saldo - precio_total_carrito
-            print(tarj.saldo)
-            tarj.save()
-        trackno = 'sharma'+str(random.randint(1111111,9999999))
+
+
+            if(tarj.saldo>= precio_total_carrito):
+
+                tarj.saldo = tarj.saldo - precio_total_carrito
+            
+                tarj.save()
+            else:
+                return JsonResponse({'status': "No tienes suficiente saldo"})
+        else:
+            return JsonResponse({'status': "Tienes que tener una tarejta seleccionada"})
+        trackno = 'orden'+str(random.randint(1111111,9999999))
 
         while Orden.objects.filter(seguimiento_num=trackno) is None:
-            trackno = 'sharma'+str(random.randint(1111111,9999999))
+            trackno = 'orden'+str(random.randint(1111111,9999999))
         
         nuevaorden.seguimiento_num = trackno
         nuevaorden.save()

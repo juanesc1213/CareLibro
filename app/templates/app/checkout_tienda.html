@@ -8,7 +8,7 @@
 {% load humanize %}
 
 <div class="container mt-3">
-    <form action="{% url 'placeorder' %}" method="POST">
+    <form action="{% url 'checkout_tienda_orden'  tienda.id %}" method="POST">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-7 ">

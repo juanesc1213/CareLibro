@@ -328,11 +328,19 @@ def checkout_tienda_orden(request,id):
         numtarjeta=int(request.POST.get('forma_pago'))
         print(numtarjeta)
         if (Tarjeta.objects.filter(user=request.user,num_tarjeta=numtarjeta)):
+
             tarj=Tarjeta.objects.get(user=request.user,num_tarjeta=numtarjeta)
-            tarj.saldo = tarj.saldo - precio_total_carrito
-            print(tarj.saldo)
-            tarj.save()
-        trackno = 'sharma'+str(random.randint(1111111,9999999))
+
+
+            if(tarj.saldo>= precio_total_carrito):
+
+                tarj.saldo = tarj.saldo - precio_total_carrito
+            
+                tarj.save()
+            else:
+                return JsonResponse({'status': "No tienes suficiente saldo"})
+        else:
+            return JsonResponse({'status': "Tienes que tener una tarejta seleccionada"})
 
         while Orden.objects.filter(seguimiento_num=trackno) is None:
             trackno = 'sharma'+str(random.randint(1111111,9999999))
@@ -341,14 +349,18 @@ def checkout_tienda_orden(request,id):
         nuevaorden.save()
         nuevaordenitem = Carrito.objects.filter(user=request.user)
         for item in nuevaordenitem:
+            print(item.product.nombre)
             OrdenItem.objects.create (
                 orden=nuevaorden,
                 producto = item.product,
                 precio = item.product.precio,
                 cantidad = item.producto_qty
             )
-            existenciaproducto = Existencias.objects.filter(id=item.product_id,tienda=tienda).first()
+
+            
+            existenciaproducto = Existencias.objects.filter(producto=item.product,tienda=tienda).first()
             existenciaproducto.existencias = existenciaproducto.existencias - item.producto_qty
+            print(existenciaproducto.existencias)
             existenciaproducto.save()
 
         Carrito.objects.filter(user=request.user).delete()
