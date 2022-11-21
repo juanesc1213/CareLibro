@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+
+{% block contenido %}
+    <div class="container my-3">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h2> Mis compras</h2>
+
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th> Fecha de la compra</th>
+                                        <th> Numero de la orden</th>
+                                        <th> Precio Total</th>
+                                        <th> Estado de la compra</th>
+                                        <th> Accion </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in orden%}
+                                    <tr>
+                                        <td> {{ item.creado_en }} </td>
+                                        <td> {{ item.seguimiento_num }}</td>
+                                        <td> {{ item.precio_total }}</td>
+                                        <td> {{ item.estatus }}</td>
+                                        <td> <a href="{%  url 'verorden' item.seguimiento_num %}" class="btn btn-primary">Ver </a> </td>
+                                    </tr> 
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock contenido %}

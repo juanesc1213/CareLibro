@@ -119,19 +119,31 @@ def eliminar_tarjeta(request, id):
 
 @permission_required('app.add_producto')
 def agregar_producto(request):
-
+    editorial=Editorial.objects.all()
     data={
-        'form': ProductoForms()
+        'editorial': editorial
     }
     if request.method == 'POST':
-        formulario = ProductoForms(data = request.POST, files = request.FILES)
-        if formulario.is_valid():
-            formulario.save()
-            messages.success(request,"Libro Registrado")
-            return redirect(to="listar_productos")
-        else:
-            data["form"]= formulario
-            data["mensaje"]= "Error de guardado"
+        producto=Producto()
+        producto.nombre= str(request.POST.get("nombre_libro"))
+        producto.precio= int(request.POST.get("precio_libro"))
+        producto.autor= str(request.POST.get("autor_libro"))
+        producto.genero= int(request.POST.get("generos"))
+        producto.num_paginas= int(request.POST.get("num_paginas"))
+        producto.descripcion= str(request.POST.get("descripcion_libro"))
+        producto.nuevo= bool(request.POST.get("nuevo"))
+        editorial_libro= request.POST.get("editorial_libro")
+        producto.fecha_fabricacion= request.POST.get("fecha_fabricacion")
+        producto.issn= int(request.POST.get("issn_libro"))
+        producto.imagen= request.POST.get("imagen_libro")
+        producto.quantity= int(request.POST.get("cantidad_libro"))
+        producto.editorial=Editorial.objects.get(nombre=editorial_libro)
+        producto.save()
+        
+        noticia.objects.create(producto=producto)
+        messages.success(request,"Libro agregado")
+
+        return redirect(to="/")
 
 
     return render(request,'app/producto/agregar.html',data)
@@ -343,7 +355,7 @@ def checkout_tienda_orden(request,id):
             return JsonResponse({'status': "Tienes que tener una tarejta seleccionada"})
         trackno = 'orden'+str(random.randint(1111111,9999999))
         while Orden.objects.filter(seguimiento_num=trackno) is None:
-            trackno = 'sharma'+str(random.randint(1111111,9999999))
+            trackno = 'orden'+str(random.randint(1111111,9999999))
         
         nuevaorden.seguimiento_num = trackno
         nuevaorden.save()
@@ -503,8 +515,43 @@ def listar_existencias(request,id):
 
     return render(request,'app/existencias/listar.html',data)
 
+def listar_noticias(request):
+    noticias = noticia.objects.all()
+    page = request.GET.get('page',1)
 
+    try:
+        paginator = Paginator(noticias,5)
+        noticias = paginator.page(page)
+    except:
+        raise Http404
 
+    data = {
+        'noticia': noticias,
+        'paginator':paginator,
+    }
+
+    return render(request,'app/noticia.html',data)
+
+def eliminar_noticia(request, id):
+
+    noticias = get_object_or_404(noticia, id=id)
+    noticias.delete()
+    messages.warning(request,"Eliminada correctamente")
+    return redirect(to="listar_noticias")
+
+def mapa(request):
+    tiendas = Tienda.objects.all()
+    page = request.GET.get('page',1)
+    try:
+        paginator = Paginator(tiendas,5)
+        tiendas = paginator.page(page)
+    except:
+        raise Http404
+    data = {
+        'entity': tiendas,
+        'paginator':paginator,
+    }
+    return render(request,'app/tienda/mapa.html',data)
 
 def ver_perfil(request):
     data = {
@@ -612,7 +659,3 @@ def addInDiscussion(request,id):
 
     context ={'respuesta':respuesta_a}
     return render(request,'app/addInDiscussion.html',context)
-
-class NoticiaProducto(generic.detail.DetailView):
-    model= Producto
-    template_name= 'app/producto/noticiadetalle.html'

@@ -135,7 +135,7 @@ class forum(models.Model):
 
 class noticia(models.Model):
     producto=               models.ForeignKey(Producto, on_delete=models.CASCADE)
-    descripcion =           models.TextField(null=True)
+    descripcion =           models.TextField(null=True,blank=True)
     fecha_publicacion =     models.DateTimeField(auto_now_add=True, null=True)
 
 

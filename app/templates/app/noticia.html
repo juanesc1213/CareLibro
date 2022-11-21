@@ -1,68 +1,72 @@
 {% extends 'app/base.html' %}
 
-{% load static %}
-
 {% block js %}
 
-<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-
 <script>
-    $(document).ready(function() {
-      $('.slider').bxSlider({
-          mode: 'fade',//horizontal, vertical, fade
-          auto: true,
-          pause: 2000
-      });
-    });
+    function eliminarNoticia(id){
+        Swal.fire({
+            "title" : "¿Estas seguro?",
+            "text"  : "deseas eliminar la noticia?",
+            "icon"  : "question",
+            "showCancelButton" : true,
+            "confirmButtonText" : "Confirmar",
+            "cancelButtonText" : "Cancelar",
+            "confirmButtonColor" : "#B90C0C"
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "/eliminar-noticia/"+id+"/"
+            }
+        })
+    }
 </script>
 
 {% endblock %}
 
-{% block css %}
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-
-{% endblock %}
-
 {% block contenido %}
-
-<div class="slider">
-    <div>
-        <img src="{% static 'app/img/banner/bann2.png' %}" alt="">
-    </div>
-    <div>
-        <img src="{% static 'app/img/banner/bann3.png' %}" alt="">
-    </div>
-    <div>
-        <img src="{% static 'app/img/banner/bann4.png' %}" alt="">
-    </div>
-</div>
 {% load humanize %}
-<h2>Productos</h2>
-<div class="productos">
+<br><br>
+<div class="card">
+    <div class="card-body">
+        <h2>Ultimas Noticias</h2>
+        <hr>
+        <table class="table table-striped table-hover table-responsive-small">
+            <tr>
+                <th>Portada</th>
+                <th>Libro nuevo</th>
+                <th>Descripcion</th>
+                <th>Fecha de creación</th>
+                <th>Opciones</th>
+            </tr>
+        
+            {% for p in noticia %}
+        
+            <tr>
+                <td><a href="{% url 'detalle_libro' p.producto.id %} " style="text-decoration: none ; color: black;" >
+                    <div class="contenedor_producto" style="border-radius:20px ;">
+                        {% if p.producto.imagen %}
+        
+                        <img src="{{ p.producto.imagen.url }}" alt="imagen producto">
+                        {% endif %}</td>
+                <td> {{p.producto.nombre | title }}</td>
+                <td>Ha llegado a nuestra tienda {{ p.producto.descripcion }}</td>
+                <td>{{p.fecha_publicacion | time:"G:i" }}</td>
+                <td>
 
-    {% for p in productos %}
-
-    <div class="producto">
-        <a href="{% url 'detalle_libro' p.id %} " >
-            <div class="contenedor_producto">
-                {% if p.imagen %}
-
-                <img src="{{ p.imagen.url }}" alt="imagen producto">
-                {% endif %}
-                <div class="detalle">
-                    <h5>{{p.editorial | capfirst }}</h5>
-                    <h2>{{p.nombre | title }}</h2>
-                    <h3>$ {{p.precio | intcomma}}</h3>
-                </div>
-        </a>
-
-        </div>
-
+                    
+                    <a href="#" onclick="eliminarNoticia({{ p.id }})" class="btn btn-danger">Eliminar</a>
+                    
+                </td>
+            </tr>
+        
+            {% endfor %} 
+        
+        </table>
     </div>
-
-    {% endfor %}
-
+    {% include 'app/paginator.html' %}
+    
 </div>
+
+
 
 {% endblock %}

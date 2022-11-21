@@ -75,6 +75,8 @@
         <a href="{% url 'eliminar_perfil' request.user.id %}" class="btn btn-danger">Eliminar</a>
         {% if request.user.groups.all.0.name == "Cliente" %}
         <a href="{% url 'listar_tarjetas' %}" class="btn btn-warning">Ver Tarjetas</a>
+        <a href="{% url 'ordenes' %}" class="btn btn-success">Mis compras</a>
+        
         {% endif %}
         
     </tr>
