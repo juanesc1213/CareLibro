@@ -1,0 +1,50 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<br><br><br>
+
+
+
+<div id="myMap" style="height: 350px; width: 100%;"></div>
+
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+crossorigin=""></script>
+<script src="{% static 'app/js/mapa.js' %}"></script>
+
+
+  <br><br>
+
+  {% load humanize %}
+  <div class="card">
+      <div class="card-body">
+          <h2>Listado de Tiendas</h2>
+          <hr>
+          <table class="table table-striped table-hover table-responsive-small">
+              <tr>
+                  <th>Nombre</th>
+                  <th>Telefono</th>
+                  <th>Horarios</th>
+                  <th>Dias de Atencion</th>
+              </tr>
+          
+              {% for p in entity %}
+          
+              <tr>
+                  <td>{{ p.nombre | title }}</td>
+                  <td> {{p.telefono | title }}</td>
+                  <td>{{ p.horario_apertura | time:"G:i" }}-{{ p.horario_cierre | time:"G:i"  }}</td>
+                  <td>{{p.dias_atencion | intcomma }}</td>
+              </tr>
+          
+              {% endfor %} 
+          
+          </table>
+      </div>
+      {% include 'app/paginator.html' %}
+  </div>
+    
+  {% endblock %}

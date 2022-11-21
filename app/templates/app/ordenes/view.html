@@ -1,0 +1,71 @@
+{% extends 'app/base.html' %}
+
+{% block contenido %}
+{% load humanize %}
+    <div class="container my-3">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h2> Detalles de la {{ orden.seguimiento_num }}</h2>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4> Detalles del comprador </h4>
+                                    <hr>
+                                    <label class="mt-2"> Nombre </label>
+                                    <div class="border p-1"> {{orden.fname}} </div>
+                                    <label class="mt-2"> Apellido </label>
+                                    <div class="border p-1"> {{orden.lname}} </div>
+                                    <label class="mt-2"> Correo </label>
+                                    <div class="border p-1"> {{orden.email}} </div>
+                                    <label class="mt-2"> Celular </label>
+                                    <div class="border p-1"> {{orden.celular}} </div>
+                                    <label class="mt-2"> Direccion </label>
+                                    <div class="border p-1"> {{orden.ciudad}},
+                                        {{orden.direccion}}</div>
+                                    <label class="mt-2"> DNI </label>
+                                    <div class="border p-1"> {{orden.dni}} </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <h4> Detalles de la compra </h4>
+                                    <hr>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th> Nombre </th>
+                                                <th> Cantidad</th>
+                                                <th> Precio </th>
+                                                <th> Portada</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in ordenitem %}
+                                            <tr>
+                                                <td> {{ item.producto.nombre }} </td>
+                                                <td> {{ item.cantidad }}</td>
+                                                <td> {{ item.precio }}</td>
+                                                <td> 
+                                                    <img src=" {{ item.producto.imagen.url }}" height="50px" width="50px" alt="Imagen Producto">
+
+                                                </td>
+                                            </tr> 
+                                            {% endfor %}
+        
+                                        </tbody>
+                                    </table>
+                                    <h4> Total pagado: <span class="float-end">{{orden.precio_total | intcomma }} </span> </h4>
+                                    <h6 class="border p-2"> Pagado con la tarjeta: {{orden.forma_pago }} </h6>
+                                    <h6 class="border p-2"> Estado de la orden: {{orden.estatus }} </h6>
+                                    <h6 class="border p-2"> Numero de seguimiento: {{orden.seguimiento_num }} </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock contenido %}

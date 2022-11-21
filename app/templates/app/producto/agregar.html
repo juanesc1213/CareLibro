@@ -11,24 +11,79 @@
             <div class="card-body">
                 <h2>Agregar Libro</h2>
                 <hr>
-            <form action="" method="post" enctype="multipart/form-data">
-
-                {% csrf_token %}
-
-                {{ form | crispy }}
-
-                <br>
-                <div class="d-flex justify-content-left">
-                    <input type="submit" value="Guardar" class="btn btn-primary">
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    <input type="reset" value="Cancelar" class="btn btn-secondary">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="inputBox">
+                        <span>Nombre del Libro</span>
+                        <input type="text" class="card-holder-input" id="nombre_libro"  name="nombre_libro">
+                    </div>
+                    <div class="inputBox">
+                        <span>Precio</span>
+                        <input type="number" class="card-number-input"  id="precio_libro"  name="precio_libro">
+                    </div>
                     
+                        <div class="inputBox">
+                            <span>Autor</span>
+                            <input type="text" class="card-holder-input" id="autor_libro"  name="autor_libro">
+                        </div>
+                        <div class="inputBox">
+                            <label for="generos">Genero</label>
+                            <select name="generos" id="generos">
+                                <option value=1 >Accion</option>
+                                <option value=2 >Aventura</option>
+                                <option value=3 >Terror</option>
+                                <option value=4 >Ciencia ficcion</option>
+                                <option value=5 >Romance</option>
+                                <option value=6 >Humor</option>
+                                <option value=7 >Poesia</option>
+                                <option value=8 >Novela</option>
 
+                            </select>
+
+                        </div>
+                        <div class="inputBox">
+                            <span>Numero de Paginas</span>
+                            <input type="number" class="card-number-input"  id="num_paginas"  name="num_paginas">
+                        </div>
+                        <div class="inputBox">
+                            <span>Descripcion</span>
+                            <input type="text" class="card-number-input"  id="descripcion_libro"  name="descripcion_libro">
+                        </div>
+                        <div class="inputBox">
+                            <span>¿Es nuevo?</span>
+                            <input type="checkbox"   id="nuevo"  name="nuevo">
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <label>Editorial</label>
+                            <select class="form-select form-select-lg mb-3" name="editorial_libro" aria-label=".form-select-lg example ">
+                                <label>Editorial</label>
+                                {% for edi in editorial %}
+                                    <option  value="{{ edi.nombre }}" class="form-control" >{{ edi.nombre }} </option>
+                                {% endfor %}
+                              </select>
+                        </div>
+                        <div class="inputBox">
+                            <span>Fecha de publicacion</span>
+                            <input type="date"   id="datePickerId"  name="fecha_fabricacion">
+                        </div>
+                        <div class="inputBox">
+                            <span>ISSN</span>
+                            <input type="number" class="card-number-input"  id="issn_libro"  name="issn_libro">
+                        </div>
+                        <div class="inputBox">
+                            <span>Imagen</span>
+                            <input type="file" class="card-number-input"  id="imagen_libro"  name="imagen_libro">
+                        </div>
+                        <div class="inputBox">
+                            <span>Cantidad</span>
+                            <input type="number" class="card-number-input"  id="cantidad_libro"  name="cantidad_libro">
+                        </div>
                 </div>
                 
-            </form>
+            
+                    <input type="submit" value="Añadir" class="submit-btn-btn-primary">
+                    
+                </form>
             {{ mensaje }}
 
         </div>
@@ -36,5 +91,7 @@
 
   </div>
 </div>
-
+<script>
+    datePickerId.max = new Date().toISOString().split("T")[0];
+</script>
 {% endblock %}

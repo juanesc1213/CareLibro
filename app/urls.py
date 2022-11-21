@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import *
-from app.controller import cart, checkout
+from app.controller import cart, checkout, orden
 
 urlpatterns = [
     path('',            home,       name="home"),
@@ -41,7 +41,9 @@ urlpatterns = [
     path('forum/', forums, name="forum"),
     path('addInForum/',addInForum,name='addInForum'),
     path('addInDiscussion/<id>/',addInDiscussion,name='addInDiscussion'),
-    path('noticias/', noticia, name="noticia"),
-    path('noticia-producto/<int:pk>/', NoticiaProducto.as_view(), name="noticia_producto")
-    
+    path('mapa/',    mapa,    name="mapa"),
+    path('listar-noticias/', listar_noticias, name="listar_noticias"),
+    path('eliminar-noticia/<id>/', eliminar_noticia, name="eliminar_noticia"),
+    path('mis-ordenes/', orden.index , name="ordenes"),
+    path('ver-orden/<str:t_no>/', orden.verorden , name="verorden")
 ]

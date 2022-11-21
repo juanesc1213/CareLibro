@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
     <title>El Care Libro</title>
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,700;1,400;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
     
@@ -42,7 +45,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
               </li>
-
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'listar_noticias' %}">Noticias</a>
+              </li>
               {% if request.user.groups.all.0.name == "Administrador" %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'listar_productos' %}">Administrar Libros</a>
@@ -65,6 +70,9 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'forum' %}">Foro</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'mapa' %}">Tiendas</a>
               </li>
               {% if request.user.groups.all.0.name == "Cliente" %}
               <li class="nav-item">
