@@ -6,7 +6,7 @@ $(document).ready(function () {
         var inc_value = $(this).closest('.product_data').find('.qty-input').val();
         var value = parseInt(inc_value,10);
         value = isNaN(value) ? 0 : value;
-        if(value < 10)
+        if(value < 5)
         {
             value++;
             $(this).closest('.product_data').find('.qty-input').val(value);
@@ -51,6 +51,7 @@ $(document).ready(function () {
             }
         });
     });
+    
 
     $('.changeQuantity').click(function (e) {
         e.preventDefault();
@@ -96,5 +97,47 @@ $(document).ready(function () {
             }
         });
     });
+    $('.reservarBtn').click(function (e) {
+        e.preventDefault();
 
+        /* estas variables las toma del input en la vista de librodetalle */
+        var product_id = $(this).closest('.product_data').find('.prod_id').val(); 
+        var producto_qty = $(this).closest('.product_data').find('.qty-input').val();
+        var token = $('input[name=csrfmiddlewaretoken]').val();
+ 
+        $.ajax({
+            method: "POST",
+            url: "/reservar-libro",
+            data: {
+                'product_id':product_id,
+                'producto_qty':producto_qty,
+                csrfmiddlewaretoken: token
+            },
+            
+            success: function (response) {
+                console.log(response)
+                alertify.success(response.status)
+                
+            }
+        });
+    });
+    $('.delete-reserva-item').click(function (e) { 
+        e.preventDefault();
+        
+        var product_id = $(this).closest('.product_data').find('.prod_id').val(); 
+        var token = $('input[name=csrfmiddlewaretoken]').val();
+
+        $.ajax({
+            method: "POST",
+            url: "delete-reserva-item",
+            data: {
+                'product_id': product_id,
+                csrfmiddlewaretoken: token
+            },
+            success: function (response) {
+                $('.reservadata').load(location.href + " .reservadata");
+                alertify.success(response.status) 
+            }
+        });
+    });
 });

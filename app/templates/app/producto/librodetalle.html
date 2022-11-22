@@ -40,13 +40,14 @@
                             {% else %}
                                 <label class="badge bg-success">Agotado</label>
                             {% endif %}
+                            {% if request.user.groups.all.0.name == "Cliente" %}
                             <div class="row mt-2">
                                 <div class="col-md-3">
 
                                     {% csrf_token %}
 
                                     <input type="hidden" value="{{ object.id }}" class="prod_id"> <!--referencia a linea 36 de custom.js-->
-
+                                    
                                     <label for="Quantity">Cantidad</label>
                                     <div class="input-group text-center" style="width:130px;">
                                         <button class="input-group-text decrement-btn">-</button>
@@ -56,10 +57,12 @@
                                 </div>
                                 <div class="col-md-9">
                                     <br/>
+                                    
                                     {% if object.quantity > 0 %}
                                         <button type="button" class="btn btn-danger text-uppercase me-3 ms-4 float-start px-3 addToCartBtn">Añadir al <i class="bi bi-cart-plus"></i> </button>
                                     {% endif %}
-                                        <!-- <button type="button" class="btn btn-warning me-3 float-start">Reservar</button> -->
+                                        <button type="button" class="btn btn-warning me-3 float-start reservarBtn">Reservar</button>
+                                    {% endif %}
                                 </div>
                             </div>
 

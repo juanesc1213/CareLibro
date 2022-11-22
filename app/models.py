@@ -181,3 +181,11 @@ class OrdenItem(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.orden.id, self.orden.seguimiento_num)
+
+class Reserva(models.Model):
+    product = models.ForeignKey(Producto, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    cantidad_dias = models.SmallIntegerField('Cantidad de dias a reservar',default=1)
+    fecha_creacion = models.DateField(auto_now_add=True)
+    cantidad_producto= models.IntegerField(null=True)
+    estado = models.BooleanField(default=True)
