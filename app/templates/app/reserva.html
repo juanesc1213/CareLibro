@@ -1,0 +1,72 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block js %}
+{% endblock %}
+
+{% block contenido %}
+{% load humanize %}
+
+
+
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-body reservadata">
+                        
+                        
+                        {% if reserva %}
+                            {% for item in reserva %}
+                            <h2>Tus libros reservados</h2>
+                                <div class="row product_data">
+                                    <div class="col-md-2 my-auto">
+                                        <img src="{{ item.product.imagen.url }}" height="200px" width="140px" alt="imagenlibro"> 
+                                    </div>
+                                    <div class="col-md-3 my-auto">
+                                        <h6>Libro: {{ item.product.nombre }}</h6>
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        <h6>Precio: {{ item.product.precio }}</h6>
+                                    </div>
+                                    <div class="col-md-3 my-auto">
+                                        <input type="hidden" class="prod_id" value="{{ item.product_id }}">
+                                        {% csrf_token %}
+                                        {% if item.product.quantity >= item.cantidad_producto %}
+                                            <label for="Quantity">Unidades</label>
+                                            <div class="input-group text-center mb-3" style="width:130px;">
+                                                <button class="input-group-text changeQuantity decrement-btn">-</button>
+                                                <input type="text" name="quantity" class="form-control qty-input text-center" value="{{ item.cantidad_producto }}" onclick="update()"> <!--referencia a linea 37 de custom.js-->
+                                                <button class="input-group-text changeQuantity increment-btn" id="increment-btn">+</button>
+                                            </div>
+                                        {% else %}
+                                            <h6>Agotado</h6>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        <button class="btn btn-danger delete-reserva-item"> <i class="bi bi-trash-fill"></i> Eliminar </button>
+                                    </div>
+
+
+                                </div>
+                                
+                            {% endfor %}
+                            
+                        {% else %}
+                            <h4> No tienes libros reservados </h4>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+{% endblock contenido %}

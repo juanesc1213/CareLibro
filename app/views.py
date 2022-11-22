@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required,permission_required
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from .models import *
 from .forms import *
 from django.contrib.auth.models import User, Group
@@ -583,6 +583,8 @@ def modificar_perfil(request):
         'perfil_form': perfil_formulario
     }
     return render(request,'app/perfil/modificarperfil.html',data)
+
+
 
 class eliminar_perfil(generic.DeleteView):
     model = User

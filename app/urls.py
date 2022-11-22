@@ -45,5 +45,9 @@ urlpatterns = [
     path('listar-noticias/', listar_noticias, name="listar_noticias"),
     path('eliminar-noticia/<id>/', eliminar_noticia, name="eliminar_noticia"),
     path('mis-ordenes/', orden.index , name="ordenes"),
-    path('ver-orden/<str:t_no>/', orden.verorden , name="verorden")
+    path('ver-orden/<str:t_no>/', orden.verorden , name="verorden"),
+    path('reservar-libro', cart.RegistrarReserva , name="reservar_libro"),
+    path('ver-reserva', cart.viewreserva , name="ver_reserva"),
+    path('delete-reserva-item', cart.deletereservaitem, name="deletereservaitem"),
+
 ]
