@@ -163,6 +163,9 @@ class Orden(models.Model):
         ('Pendiente','Pendiente'),
         ('En envio','En envio'),
         ('Completado','Completado'),
+        ('Cancelada','Cancelada'),
+        ('Devuelta','Devuelta'),
+        
     }
     estatus = models.CharField(max_length=150,choices=statusdeorden,default ='Pendiente')
     mensaje =models.TextField( null=True)
@@ -188,4 +191,4 @@ class Reserva(models.Model):
     cantidad_dias = models.SmallIntegerField('Cantidad de dias a reservar',default=1)
     fecha_creacion = models.DateField(auto_now_add=True)
     cantidad_producto= models.IntegerField(null=True)
-    estado = models.BooleanField(default=True)
+    estado = models.BooleanField(default=True,verbose_name='Estado')

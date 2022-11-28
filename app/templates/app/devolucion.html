@@ -1,0 +1,57 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+{% block js %}
+{% endblock %}
+
+
+{% block contenido %}
+
+{% load crispy_forms_tags %}
+<br>
+<div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+
+        <div class="card">
+            <div class="card-body">
+                <h2>¿ Por qué quieres devolver tu orden ? </h2>
+                <h5> Orden: {{orden.seguimiento_num }}</h5>
+                <hr>
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="inputBox">
+                    <span>Motivo de la devolucion</span>
+                    <select  class="year-input" id="year_exp"  name="year_exp">
+                        <option value="year" selected disabled>Motivo:</option>
+                        <option value="1">Los/El libro no estuvo a mis expectativas</option>
+                        <option value="2">El producto llegó en mal estado</option>
+                        <option value="3">El producto tardó mucho en llegar</option>
+                        <option value="4">Otro</option>
+                        
+                    </select>
+                </div>
+                {% csrf_token %}
+                <label>Amplia tu motivo:</label>
+                <textarea type="text" class="form-control"  placeholder= "Ingresa aquí tu motivo" ></textarea>
+                
+                <br>
+                <div class="d-flex justify-content-left">
+                    <input type="submit" value="Guardar" class="btn btn-primary">
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <input type="reset" value="Cancelar" class="btn btn-secondary">
+                    
+
+                </div>
+                
+            </form>
+            {{ mensaje }}
+
+        </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock contenido %}

@@ -59,7 +59,7 @@
                                     <label>Tarjetas</label>
                                     {% for tar in tarjeta %}
                                       {% if tar.user.id == request.user.id %}
-                                        <option  value="{{ tar.num_tarjeta }}" class="form-control" >{{ tar.num_tarjeta }} </option>
+                                        <option  value="{{ tar.num_tarjeta }}" class="form-control" >{{ tar.num_tarjeta }} saldo: $ {{ tar.saldo | intcomma}} </option>
                                         {% endif %}
                                     {% endfor %}
                                   </select>
