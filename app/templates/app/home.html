@@ -54,6 +54,9 @@
                     <h5>{{p.editorial | capfirst }}</h5>
                     <h2>{{p.nombre | title }}</h2>
                     <h3>$ {{p.precio | intcomma}}</h3>
+                    {% if p.quantity == 0%}
+                    <h2> Agotado </h2>
+                    {% endif %}
                 </div>
         </a>
 

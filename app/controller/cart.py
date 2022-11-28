@@ -11,12 +11,29 @@ def addtocart(request):
             prod_id = int(request.POST.get('product_id'))
             product_check = Producto.objects.get(id=prod_id)
             if(product_check):
+                
+                if(Carrito.objects.filter(user=request.user.id, product_id=prod_id) and Reserva.objects.filter(user=request.user.id,product_id=prod_id)):
+                    carrito=Carrito.objects.filter(user=request.user.id, product_id=prod_id).first()
+                    reserva=Reserva.objects.filter(user=request.user.id, product_id=prod_id).first()
+                    print('reserva',reserva.cantidad_producto)
+                    carrito.producto_qty=carrito.producto_qty + reserva.cantidad_producto
+                    product_check.quantity = product_check.quantity + reserva.cantidad_producto
+                    product_check.save()
+                    print('reserva',carrito.producto_qty)
+                    carrito.save()
+                    reserva.delete()
                 if(Carrito.objects.filter(user=request.user.id, product_id=prod_id)):
                     return JsonResponse({'status': "el Libro ya está en el carrito"})
+                
                 else:
                     prod_qty = int(request.POST.get('producto_qty'))
 
                     if product_check.quantity >= prod_qty :
+                        reserva=Reserva.objects.filter(user=request.user.id, product_id=prod_id).first()
+                        product_check.quantity = product_check.quantity + reserva.cantidad_producto
+                        product_check.save()
+                        reserva.delete()
+                        
                         Carrito.objects.create(user=request.user, product_id=prod_id, producto_qty=prod_qty)
                         return JsonResponse({'status': "Libro añadido exitosamente  "})
                     else:

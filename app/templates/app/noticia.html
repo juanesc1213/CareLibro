@@ -36,7 +36,9 @@
                 <th>Libro nuevo</th>
                 <th>Descripcion</th>
                 <th>Fecha de creación</th>
+                {% if request.user.groups.all.0.name == "Administrador" %}
                 <th>Opciones</th>
+                {% endif %}
             </tr>
         
             {% for p in noticia %}
@@ -50,13 +52,17 @@
                         {% endif %}</td>
                 <td> {{p.producto.nombre | title }}</td>
                 <td>Ha llegado a nuestra tienda {{ p.producto.descripcion }}</td>
-                <td>{{p.fecha_publicacion | time:"G:i" }}</td>
-                <td>
+                <td>{{p.fecha_publicacion | date:"d F" }}</td>
+
+                {% if request.user.groups.all.0.name == "Administrador" %}
+                
+                    <td>
 
                     
                     <a href="#" onclick="eliminarNoticia({{ p.id }})" class="btn btn-danger">Eliminar</a>
                     
-                </td>
+                    </td>
+                {% endif %}
             </tr>
         
             {% endfor %} 

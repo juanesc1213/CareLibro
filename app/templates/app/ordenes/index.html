@@ -1,6 +1,8 @@
 {% extends 'app/base.html' %}
 
+
 {% block contenido %}
+{% load humanize %}
     <div class="container my-3">
             <div class="row">
                 <div class="col-md-12 ">
@@ -25,9 +27,11 @@
                                     <tr>
                                         <td> {{ item.creado_en }} </td>
                                         <td> {{ item.seguimiento_num }}</td>
-                                        <td> {{ item.precio_total }}</td>
+                                        <td> $ {{ item.precio_total | intcomma }}</td>
                                         <td> {{ item.estatus }}</td>
-                                        <td> <a href="{%  url 'verorden' item.seguimiento_num %}" class="btn btn-primary">Ver </a> </td>
+                                        <td> <a href="{%  url 'verorden' item.seguimiento_num %}" class="btn btn-primary">Ver </a>
+                                        
+                                        </td>
                                     </tr> 
                                     {% endfor %}
 

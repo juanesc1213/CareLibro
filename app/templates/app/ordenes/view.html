@@ -61,6 +61,14 @@
                                     <h6 class="border p-2"> Pagado con la tarjeta: {{orden.forma_pago }} </h6>
                                     <h6 class="border p-2"> Estado de la orden: {{orden.estatus }} </h6>
                                     <h6 class="border p-2"> Numero de seguimiento: {{orden.seguimiento_num }} </h6>
+                                    {% if orden.estatus == 'Pendiente' %}
+                                    <a href="{%  url 'cancelar_orden' orden.seguimiento_num  %}" class="btn btn-danger">Cancelar Compra </a>
+                                    {% endif %}
+                                    {% if tiempo > orden.creado_en %}
+                                    {% if orden.estatus == 'Completado' %}
+                                    <a href="{%  url 'realizar_devolucion' orden.seguimiento_num %}" class="btn btn-danger">Realizar Devolución </a>
+                                    {% endif %}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

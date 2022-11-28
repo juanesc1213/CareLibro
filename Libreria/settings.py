@@ -44,6 +44,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 X_FRAME_OPTIONS='SAMEORIGIN'
 
 MIDDLEWARE = [
+    'app.middleware.PruebaMiddleware',
+    'app.middleware.PruebaMiddlewareCompra',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

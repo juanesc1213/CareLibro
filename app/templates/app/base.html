@@ -45,9 +45,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'listar_noticias' %}">Noticias</a>
-              </li>
+              
               {% if request.user.groups.all.0.name == "Administrador" %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'listar_productos' %}">Administrar Libros</a>
@@ -73,6 +71,9 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'mapa' %}">Tiendas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'listar_noticias' %}">Noticias</a>
               </li>
               {% if request.user.groups.all.0.name == "Cliente" %}
               <li class="nav-item">
