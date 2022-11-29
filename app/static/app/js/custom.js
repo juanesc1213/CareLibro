@@ -78,7 +78,7 @@ $(document).ready(function () {
     }); 
 
 
-    $('.delete-cart-item').click(function (e) { 
+    $(document).on('click', '.delete-cart-item', function (e) { 
         e.preventDefault();
         
         var product_id = $(this).closest('.product_data').find('.prod_id').val(); 
@@ -92,8 +92,9 @@ $(document).ready(function () {
                 csrfmiddlewaretoken: token
             },
             success: function (response) {
-                $('.cartdata').load(location.href + " .cartdata");
                 alertify.success(response.status) 
+                $('.cartdata').load(location.href + " .cartdata");
+                
             }
         });
     });
@@ -121,7 +122,7 @@ $(document).ready(function () {
             }
         });
     });
-    $('.delete-reserva-item').click(function (e) { 
+    $(document).on('click', '.delete-reserva-item', function (e) { 
         e.preventDefault();
         
         var product_id = $(this).closest('.product_data').find('.prod_id').val(); 
@@ -135,9 +136,11 @@ $(document).ready(function () {
                 csrfmiddlewaretoken: token
             },
             success: function (response) {
-                $('.reservadata').load(location.href + " .reservadata");
                 alertify.success(response.status) 
+                $('.reservadata').load(location.href + " .reservadata");
+                
             }
         });
     });
+   
 });
