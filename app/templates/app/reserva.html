@@ -18,8 +18,9 @@
                         
                         
                         {% if reserva %}
-                            {% for item in reserva %}
+                            
                             <h2>Tus libros reservados</h2>
+                            {% for item in reserva %}
                                 <div class="row product_data">
                                     <div class="col-md-2 my-auto">
                                         <img src="{{ item.product.imagen.url }}" height="200px" width="140px" alt="imagenlibro"> 
