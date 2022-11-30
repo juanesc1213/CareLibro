@@ -19,9 +19,11 @@
             <div class="card product_data"> <!--SE AGREGÓ product data para hacer el carrito-->
                 <div class="row">
                     <div class="col-md-5"> <!--ocupa 5/12 del container-->
+                        {% if object.imagen %}
                         <div class="images p-4 pe-0">
                             <div class="text-center p-4"> <img src="{{ object.imagen.url }}" alt="imagen producto"/> </div>
                         </div>
+                        {% endif %}
                     </div>
                     <div class="col-md-7"> <!--ocupa 7/12 del container-->
                         <div class="product p-4 "> 
