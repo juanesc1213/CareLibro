@@ -26,7 +26,7 @@
                                         <h6>Libro: {{ item.product.nombre }}</h6>
                                     </div>
                                     <div class="col-md-2 my-auto">
-                                        <h6>Precio: {{ item.product.precio }}</h6>
+                                        <h6>Precio: $ {{ item.product.precio | intcomma }}</h6>
                                     </div>
                                     <div class="col-md-3 my-auto">
                                         <input type="hidden" class="prod_id" value="{{ item.product_id }}">
@@ -51,10 +51,10 @@
                                 
                             {% endfor %}
                             {% if user.perfilusuario.pais.name == "Colombia" %}
-                                <a href="{% url 'checkout' %}" class="btn btn-outline-success float-end" >Realizar envio </a>
-                                <a href="{% url 'recoger_tienda' %}" class="btn btn-success float-end" >Recoger en tienda </a>
+                                <a href="{% url 'checkout' %}" class="btn btn-outline-danger float-end m-3 " >Realizar envio </a>
+                                <a href="{% url 'recoger_tienda' %}" class="btn btn-outline-warning float-end m-3 " >Recoger en tienda </a>
                             {% else %}
-                                <a href="{% url 'checkout' %}" class="btn btn-outline-success float-end" > Realizar envio </a>
+                                <a href="{% url 'checkout' %}" class="btn btn-outline-warning float-end" > Realizar envio </a>
                                 {% endif %}
                         {% else %}
                             <h4> El carrito está vacio </h4>

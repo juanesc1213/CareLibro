@@ -54,7 +54,7 @@
                                 <input type="text" required value="{{ userprofile.fecha_nacimiento}}" class="form-control" name="fecha_nacimiento" placeholder= "Ingrese su Fecha de Nacimiento">
                             </div>
                             <div class="col-md-6 mt-2">
-                                <label>Tarejtas</label>
+                                <label>Tarjetas</label>
                                 <select class="form-select form-select-lg mb-3" name="forma_pago" aria-label=".form-select-lg example ">
                                     <label>Tarjetas</label>
                                     {% for tar in tarjeta %}
@@ -91,7 +91,7 @@
                                                 <img src="{{ item.product.imagen.url }}" height="50px" class="me-2" width="50px">
                                                 {{ item.product.nombre }} </td>
                                             <td> {{ item.producto_qty }} </td>
-                                            <td> {{ item.product.precio | intcomma }} </td>
+                                            <td> ${{ item.product.precio | intcomma }} </td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>

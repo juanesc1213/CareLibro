@@ -43,7 +43,7 @@
 
     {% for p in productos %}
 
-    <div class="producto">
+    <div class="producto mb-5">
         <a href="{% url 'detalle_libro' p.id %} " style="text-decoration: none ; color: black;" >
             <div class="contenedor_producto" style="border-radius:20px ;">
                 {% if p.imagen %}

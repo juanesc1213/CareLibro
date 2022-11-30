@@ -70,12 +70,12 @@
 
 <table>
     <tr>      
-        <a href="{% url 'modificar_perfil'  %}" class="btn btn-primary">Modificar</a>
-        <a href="{% url 'cambiar_contraseña'  %}" class="btn btn-primary">Modificar contraseña</a>
-        <a href="{% url 'eliminar_perfil' request.user.id %}" class="btn btn-danger">Eliminar</a>
+        <a href="{% url 'modificar_perfil'  %}" class="btn btn-primary m-1">Modificar</a>
+        <a href="{% url 'cambiar_contraseña'  %}" class="btn btn-primary m-1">Modificar contraseña</a>
+        <a href="{% url 'eliminar_perfil' request.user.id %}" class="btn btn-danger m-1">Eliminar</a>
         {% if request.user.groups.all.0.name == "Cliente" %}
-        <a href="{% url 'listar_tarjetas' %}" class="btn btn-warning">Ver Tarjetas</a>
-        <a href="{% url 'ordenes' %}" class="btn btn-success">Mis compras</a>
+        <a href="{% url 'listar_tarjetas' %}" class="btn btn-warning m-1">Ver Tarjetas</a>
+        <a href="{% url 'ordenes' %}" class="btn btn-success m-1">Mis compras</a>
         
         {% endif %}
         

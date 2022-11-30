@@ -43,7 +43,7 @@ class PruebaMiddlewareCompra:
             compras = Orden.objects.filter(estatus='Pendiente', user=request.user)
             
             for reserva in compras:
-                fecha_vencimiento = reserva.creado_en + timedelta(days=1)
+                fecha_vencimiento = reserva.creado_en + timedelta(days=3)
                 print(fecha_vencimiento)
                 if now > fecha_vencimiento and reserva.estatus == 'Pendiente':
                     print('Fecha actual es mayor que la de creacion')

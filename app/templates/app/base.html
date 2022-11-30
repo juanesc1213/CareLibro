@@ -15,7 +15,7 @@
     {% block css %}
     {% endblock %}
 
-    <link rel="stylesheet" href="{% static 'app/css/estilov3.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/estilov4.css' %}">
 
         <!--iconos de bootstrap-->
     
@@ -80,7 +80,12 @@
                 <a class="nav-link" href="{% url 'cart' %}">Carrito</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'ver_reserva' %}">Mis reservas</a>
+                <a class="nav-link" href="{% url 'ver_reserva' %}"> Reservas</a>
+                
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'ordenes' %}"> Mis Compras</a>
+                
               </li>
               {% endif %}
               
@@ -121,13 +126,19 @@
 
 
     <footer>
-        {% comment %} <div class="marcas">
-            <img src="{% static 'app/img/footer/apple.png' %}" alt="apple">
-            <img src="{% static 'app/img/footer/lenovo.png' %}" alt="lenovo">
-            <img src="{% static 'app/img/footer/microsoft.png' %}" alt="microsoft">
-            <img src="{% static 'app/img/footer/samsung.png' %}" alt="samsung">
-            <img src="{% static 'app/img/footer/xiaomi.png' %}" alt="xiaomi">
-        </div> {% endcomment %}
+        <div>
+          <ul class="pt-3" style="list-style-type: none; padding: 0;  display: flex; justify-content:center">
+            <li>
+              <a class="m-3" style="color: rgba(255, 255, 255, 0.759);" aria-current="page" href="{% url 'home' %}">Inicio</a>
+            </li>
+            <li>
+              <a class="m-3" style="color: rgba(255, 255, 255, 0.759);" href="{% url 'contacto' %}">Contacto</a>
+            </li>
+            <li>
+              <a class="m-3" style="color: rgba(255, 255, 255, 0.759);" href="{% url 'mapa' %}">Tiendas</a>
+            </li>
+          </ul>
+        </div>
         <div class="logo_footer">
             <img src="{% static 'app/img/ELCARELIBRO.png' %}" alt="logo">
         </div>

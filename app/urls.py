@@ -48,6 +48,8 @@ urlpatterns = [
     path('ver-orden/<str:t_no>/', orden.verorden , name="verorden"),
     path('cancelar-orden/<str:t_no>/', orden.cancelar_orden , name="cancelar_orden"),
     path('realizar-devolucion/<str:t_no>/', orden.realizar_devolucion , name="realizar_devolucion"),
+    path('add-to-cart-reserva', cart.addtocartReserva, name="addtocartreserva"),
+
     path('reservar-libro', cart.RegistrarReserva , name="reservar_libro"),
     path('ver-reserva', cart.viewreserva , name="ver_reserva"),
     path('delete-reserva-item', cart.deletereservaitem, name="deletereservaitem"),
