@@ -11,9 +11,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*s*jvn1%*9s3=bvil-w6j$0orv-vj*h=*hq-@y7@bu-*o6p99g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
@@ -47,7 +47,6 @@ MIDDLEWARE = [
     'app.middleware.PruebaMiddleware',
     'app.middleware.PruebaMiddlewareCompra',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -122,6 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -129,16 +129,7 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import os
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-STATIC_TMP = os.path.join(BASE_DIR,'static')
-STATIC_URL = '/static/'
-os.makedirs(STATIC_TMP,exist_ok=True)
-os.makedirs(STATIC_ROOT,exist_ok=True)
-STATICFILES_DIRS =(
-    os.path.join(BASE_DIR,'static'),
-)
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 USE_DJANGO_JQUERY = True
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
