@@ -75,7 +75,8 @@ $(document).ready(function () {
                 
             }
         });
-    }); 
+    });
+    
 
 
     $(document).on('click', '.delete-cart-item', function (e) { 
@@ -109,6 +110,30 @@ $(document).ready(function () {
         $.ajax({
             method: "POST",
             url: "/reservar-libro",
+            data: {
+                'product_id':product_id,
+                'producto_qty':producto_qty,
+                csrfmiddlewaretoken: token
+            },
+            
+            success: function (response) {
+                console.log(response)
+                alertify.success(response.status)
+                
+            }
+        });
+    });
+    $('.addToCartBtnReserva').click(function (e) {
+        e.preventDefault();
+
+        /* estas variables las toma del input en la vista de librodetalle */
+        var product_id = $(this).closest('.product_data').find('.prod_id').val(); 
+        var producto_qty = $(this).closest('.product_data').find('.qty-input').val();
+        var token = $('input[name=csrfmiddlewaretoken]').val();
+ 
+        $.ajax({
+            method: "POST",
+            url: "/add-to-cart-reserva",
             data: {
                 'product_id':product_id,
                 'producto_qty':producto_qty,

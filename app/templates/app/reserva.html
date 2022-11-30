@@ -25,13 +25,13 @@
                                     <div class="col-md-2 my-auto">
                                         <img src="{{ item.product.imagen.url }}" height="200px" width="140px" alt="imagenlibro"> 
                                     </div>
-                                    <div class="col-md-3 my-auto">
+                                    <div class="col-md-2 my-auto">
                                         <h6>Libro: {{ item.product.nombre }}</h6>
                                     </div>
                                     <div class="col-md-2 my-auto">
                                         <h6>Fecha de Reserva: {{item.fecha_creacion}}</h6>
                                     </div>
-                                    <div class="col-md-3 my-auto">
+                                    <div class="col-md-2 my-auto">
                                         <input type="hidden" class="prod_id" value="{{ item.product_id }}">
                                         {% csrf_token %}
                                         {% if item.product.quantity >= item.cantidad_producto %}
@@ -45,11 +45,11 @@
                                             <h6>Agotado</h6>
                                         {% endif %}
                                     </div>
-                                    <div class="col-md my-auto">
-                                        <button type="button" class="btn btn-success text-uppercase me-3 ms-4 float-start px-3 addToCartBtn">Añadir al <i class="bi bi-cart-plus"></i> </button>
+                                    <div class="col-md-2 my-auto">
+                                        <button type="button" class="btn btn-success me-1 ms-2 float-start px-3 addToCartBtnReserva">Añadir al <i class="bi bi-cart-plus"></i> </button>
                                     </div>
-                                    <div class="col-md my-auto">
-                                        <button class="btn btn-danger delete-reserva-item"> <i class="bi bi-trash-fill"></i> Eliminar </button>
+                                    <div class="col-md-2 my-auto">
+                                        <button class="btn btn-danger me-4 ms-0  delete-reserva-item "> <i class="bi bi-trash-fill"></i> Eliminar </button>
                                     </div>
 
                                 </div>

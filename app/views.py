@@ -135,7 +135,6 @@ def agregar_producto(request):
         editorial_libro= request.POST.get("editorial_libro")
         producto.fecha_fabricacion= request.POST.get("fecha_fabricacion")
         producto.issn= int(request.POST.get("issn_libro"))
-        producto.imagen= request.POST.get("imagen_libro")
         producto.quantity= int(request.POST.get("cantidad_libro"))
         producto.editorial=Editorial.objects.get(nombre=editorial_libro)
         producto.save()
